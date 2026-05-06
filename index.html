@@ -16,10 +16,83 @@
   </style>
 </head>
 <body>
+  <!-- hide skip with css -->
+  <a href="#main" class="visually-hidden">Skip to main content</a>
 
-  <h1>heres a title</h1>
-  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem quis dolorum amet numquam et aliquam odio iusto deserunt, cumque sunt ducimus? Accusamus incidunt officia similique illo nesciunt voluptatum quidem natus?</p>
+  <header>
+    <a href="/">
+      <img src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
+    </a>
 
+    <select name="units" id="units">
+      <option value="">Units</option>
+    </select>
+  </header>
+
+  <!-- added id in main for Skip Link
+    which will enable for screen redaer users and keyboard only users to
+    be able to skip to main section and able to skip the header -->
+  <main id="main">
+    <!-- hero means: very top part of the website
+     like saying what the website is about or any call to actions to do -->
+    <section class="hero">
+      <h1 class="hero__title">How's the sky looking today?</h1>
+
+      <div class="hero__search">
+        <input class="hero__textbox" type="text" name="search" id="search">
+        <button class="hero__button" type="submit">Search</button>
+      </div>
+    </section>
+    <!-- got 3 sections city, daily & hourly forecast -->
+    <section class="current">
+      <!-- for screen readers -->
+      <h2 class="visually-hidden">Current Location Temperature</h2>
+
+      <!-- city : city name, date, icon, temperature -->
+      <div class="current__weather">
+        <!-- use flexbox : for city date on leftside and temp on right side -->
+        <div class="current__location">
+          <div class="current__city">Berlin, Germany</div>
+          <div class="current__date">Tuesday, Aug 5, 2025</div>
+        </div>
+        <!-- weather icons like sunny, rainy, cloudy -->
+        <div class="current__icon">
+          <img src="/assets/images/icon-sunny.webp" alt="" width="320" height="320"> <!--alt will be added dynamically-->
+        </div>
+        <!-- used span to wrap the numbers
+         and add degree afterwards coz will target span to insert number temperature
+         then will add the degree-->
+        <div class="current__temp"><span>20</span>&deg;</div> 
+      </div>
+
+      <!-- current conditions (different panels): feels like, humidity, wind, precipitation
+        this will contain the panels (plural) -->
+      <div class="current__conditions">
+        <!-- singular like it will hold text and number -->
+        <div class="current__condition">
+          <div class="current__condition-title">Feels Like</div>
+          <!-- use id when using javascript to change something
+            we can target theses id's in js -->
+          <div id="feelsLike" class="current__condition-value">18&deg;</div>
+        </div>
+
+        <div class="current__condition">
+          <div class="current__condition-title">Humidity</div>
+          <div id="humidity" class="current__condition-value">46%</div>
+        </div>
+
+        <div class="current__condition">
+          <div class="current__condition-title">Wind</div>
+          <div id="wind" class="current__condition-value">14 km/h</div>
+        </div>
+
+        <div class="current__condition">
+          <div class="current__condition-title">Precipitation</div>
+          <div id="precipitation" class="current__condition-value">0 mm</div>
+        </div>
+      </div>
+    </section>
+  </main>
   <!-- Units
 
   Switch to Imperial/Metric
