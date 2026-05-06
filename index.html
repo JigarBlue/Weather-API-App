@@ -104,7 +104,6 @@
       <h2 class="section__title daily__title">Daily forecast</h2>
         <!-- daily_forecast will contain the individual days -->
         <div class="daily__forecast">
-          <!-- will keep everyhitng same here, coz will change it dynamically -->
 
           <div class="daily__day">
             <p class="daily__day-title">Tue</p>
@@ -117,6 +116,8 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
+
+          <!-- will keep everyhitng same here, coz will change it dynamically -->
 
           <div class="daily__day">
             <p class="daily__day-title">Tue</p>
@@ -193,7 +194,80 @@
     </section>
 
     <!-- Section 3 : Hourly forecast  -->
+    <section class="hourly">
+      <!-- header section (dropdown day list) for hourly forecast -->
+      <div class="hourly__header">
+        <h2 class="section__title hourly__title">Hourly forecast</h2>
+        <select name="hourly-day" id="hourlyDay">
+          <option value="">Tuesday</option>
+        </select>
+      </div>
 
+      <!-- actual hours -->
+       <!-- this div will be plural coz it will contain all these specific hours -->
+      <div class="hourly__hours">
+
+        <!-- singular : contains hour, weather icon, temperature -->
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+         <!-- will leave everything same coz will change it dynamicallty -->
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+        <div class="hourly__hour">
+          <!-- use alt coz it contains important informaton like what weather conditions are -->
+          <img class="hourly__hour-icon" src="/assets/images/icon-sunny.webp" width="40" height="40" alt="" />
+          <p class="hourly__hour-time">3 PM</p>
+          <p class="hourly__hour-temp">20&deg;</p>
+        </div>
+
+      </div>
+    </section>
   </main>
   <!-- Units
 
