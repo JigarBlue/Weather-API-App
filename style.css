@@ -93,7 +93,17 @@
     /* custom properties for font size*/
     --font-size-h1: var(--fs-52); /*h1 tags*/
     --font-size-dropdown: var(--fs-14); /*mobile*/
-    --font-size-search: var(--fs-20); /*search box*/
+    --font-size-search: var(--fs-20); /*search box & search button*/
+    --font-size-city: var(--fs-28); /*city name */
+    --font-size-date: var(--fs-18); /*Date */
+    --font-size-temp: var(--fs-96); /*Temperature*/
+    --font-size-temp-panel-title: var(--fs-18); /*temperature: feels like*/
+    --font-size-temp-panel-value: var(--fs-32); /*temperature: feels like*/
+    --font-size-daily-forecast-title: var(--fs-20); /*daily forecast for daily & hourly*/
+    --font-size-daily-forecast-day: var(--fs-18); /*daily forecast for days*/
+    --font-size-daily-forecast-temp: var(--fs-16); /*daily forecast temperature*/
+    --font-size-daily-forecast-dropdown: var(--fs-16); /*hourly forecast dropdown*/
+    --font-size-daily-forecast-hour: var(--fs-20); /*forecast for hour*/
 
     /* change drop down font size for tablet
        use calc() to convert from pixels to rems
