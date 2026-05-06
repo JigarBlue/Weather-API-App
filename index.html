@@ -44,6 +44,9 @@
       </div>
     </section>
     <!-- got 3 sections city, daily & hourly forecast -->
+
+    <!-- Section 1:  current weather(city name, date, temperatute), 
+                     current conditions(feels like, humidity, wind, precipitation) -->
     <section class="current">
       <!-- for screen readers -->
       <h2 class="visually-hidden">Current Location Temperature</h2>
@@ -70,27 +73,32 @@
       <div class="current__conditions">
         <!-- singular like it will hold text and number -->
         <div class="current__condition">
-          <div class="current__condition-title">Feels Like</div>
+          <p class="current__condition-title">Feels Like</p>
           <!-- use id when using javascript to change something
             we can target theses id's in js -->
-          <div id="feelsLike" class="current__condition-value">18&deg;</div>
+          <p id="feelsLike" class="current__condition-value">18&deg;</p>
         </div>
 
         <div class="current__condition">
-          <div class="current__condition-title">Humidity</div>
-          <div id="humidity" class="current__condition-value">46%</div>
+          <p class="current__condition-title">Humidity</p>
+          <p id="humidity" class="current__condition-value">46%</p>
         </div>
 
         <div class="current__condition">
-          <div class="current__condition-title">Wind</div>
-          <div id="wind" class="current__condition-value">14 km/h</div>
+          <p class="current__condition-title">Wind</p>
+          <p id="wind" class="current__condition-value">14 km/h</p>
         </div>
 
         <div class="current__condition">
-          <div class="current__condition-title">Precipitation</div>
-          <div id="precipitation" class="current__condition-value">0 mm</div>
+          <p class="current__condition-title">Precipitation</p>
+          <p id="precipitation" class="current__condition-value">0 mm</p>
         </div>
       </div>
+    </section>
+
+    <!-- Section 2 : Daily forecast  -->
+    <section class="daily">
+        <div class="daily__forecast"></div>
     </section>
   </main>
   <!-- Units
