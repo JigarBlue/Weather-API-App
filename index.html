@@ -21,15 +21,18 @@
    so if one use a keyboard and use tab to navigate then
    we want to be able to see the link visually if it gets focused with tabbing-->
   <a href="#main" class="visually-hidden skip-link">Skip to main content</a>
-
+  <!-- parent -->
   <header class="header wrapper">
-    <a class="header__homelink" href="/">
-      <img class="header__logo" src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
-    </a>
+    <!-- child with section specific class called header_content-->
+    <div class="header__content">
+      <a class="header__homelink" href="/">
+        <img class="header__logo" src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
+      </a>
 
-    <select class="header__dropdown" name="units" id="units">
-      <option value="">Units</option>
-    </select>
+      <select class="header__dropdown" name="units" id="units">
+        <option value="">Units</option>
+      </select>
+    </div>
   </header>
 
   <!-- added id in main for Skip Link
@@ -39,12 +42,15 @@
     <!-- hero means: very top part of the website
      like saying what the website is about or any call to actions to do -->
     <section class="hero wrapper">
-      <h1 class="hero__title">How's the sky looking today?</h1>
+      <div class="hero__content">
+        <h1 class="hero__title">How's the sky looking today?</h1>
 
-      <div class="hero__search">
-        <input class="hero__textbox" type="text" name="search" id="search">
-        <button class="hero__button" type="submit">Search</button>
+        <div class="hero__search">
+          <input class="hero__textbox" type="text" name="search" id="search" placeholder="Search for a place...">
+          <button class="hero__button" type="submit">Search</button>
+        </div>
       </div>
+      
     </section>
     <!-- got 3 sections city, daily & hourly forecast -->
 

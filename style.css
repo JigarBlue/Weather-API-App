@@ -156,6 +156,21 @@ font family, color properties font size properties, root, img, body and h tags *
         font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
     }
 
+    input, button, textarea {
+        /*we do font inherit here coz browser make all the form elements have
+          a specific different font size.
+          so even if we set the font size on body tag, the form elements will
+          not inherit that coz they have all kind of font size set on
+          the element itself. So we need to force it to inherit from 
+          the body like we have here. Plus this will stretch our button a bit. */
+        font: inherit; 
+        /* we set width to 100% to control overflow for different browsers.
+           coz some browser for mobile may encounter problem where
+           text box and button overflows and goes off screen towards right*/
+        width: 100%; 
+        border: none; /*for all the form elements*/
+    }
+
     /* wrapper class : space on the side top right (like outside of tags like visually) 
        this will be our helper class which we'll use throughout the site*/
     .wrapper {
@@ -252,11 +267,104 @@ font family, color properties font size properties, root, img, body and h tags *
        an element that has a class of header which will only 
        exist in this header tag*/
     .header {
+
+        /* Units dropdown for mobile*/
+        .header__content {
+            display: flex;
+            align-items: center; /*to prevent changes in height*/
+            /*on either side (so it will move to right side)
+             coz parent class header logo image is on left side and
+             this is child wrapper class which will make it move all the way to right side */
+            justify-content: space-between; 
+            padding-block-start: 16px; /*padding at the top of page*/
+        }
+
         .header__homelink {}
 
-        .header__logo {}
+        /* header logo image 
+         137px on mobile */
+        .header__logo {
+            width: calc(137 / 16 * 1rem);
 
-        .header__dropdown {}
+            /* tablet 197px 
+            700px for breakpoint
+            ensure to use same media queries break points as much as possible*/
+            @media (width >= calc(700 / 16 * 1rem)) {
+                width: calc(197 / 16 * 1rem);
+            }
+        }
+
+        /* Units dropdown for mobile*/
+        .header__dropdown {
+            width: calc(90 / 16 * 1rem);
+        }
+    }
+
+    /* mobile: styles for h tags */
+    .hero {
+
+        .hero__content {
+            display: grid; /*tablet*/
+            justify-items: center; /*tablet*/
+            padding-block-start: 48px;
+        }
+
+        /*mobile: 'how's the sky today?' */
+        .hero__title {
+            font-size: var(--font-size-h1);
+            margin-block-end: 48px; /*space under title 'how's the sky today?'*/
+            text-align: center;
+            line-height: 1.2;
+
+            /* tablet */
+            @media (width >= calc(700 / 16 * 1rem)) {
+                max-width: 10ch; /*makes half text of title move down (split in half)*/
+            }
+        }
+
+        .hero__search {
+            /*mobile*/
+            display: grid; /*by default it add rows*/ 
+            gap: 12px 16px; /*row 12px, column 16px*/
+            width: 100%;
+        }
+        /* input - text */
+        .hero__textbox {
+            /* reset default browser styles */
+            /* search icon */
+            background-image: url("/assets/images/icon-search.svg");
+            background-repeat: no-repeat;
+            background-position: 24px center;
+            /* text styles */
+            background-color: var(--color-panel-bg-dark);
+            font-size: var(--font-size-search);
+            padding: 16px 20px 16px 60px; /*top 16px, right 20px, bottom 16px, left 60px*/
+            color: var(--color-text-med-light);
+            border-radius: 12px; /*textbox*/
+
+            /* outline for textbox */
+            &:focus {
+                outline: 2px solid var(--color-text-med-light);
+            }
+        }
+
+        /* search button */
+        .hero__button {
+            background-color: var(--c-blue-500);
+            border-radius: 12px;
+            font-size: var(--font-size-search);
+            color: var(--color-text-light);
+            padding-block: 16px; /*top & bottom*/
+            transition: background-color 120ms ease-in-out;
+
+            &:hover {
+                background-color: var(--color-button-bg-hover);
+                cursor: pointer;
+            }
+        }
+
+
+
     }
 }
 
