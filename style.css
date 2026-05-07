@@ -1,148 +1,217 @@
-/* dm-sans-300 - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 300;
-  src: url('/assets/fonts/dm-sans-v17-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* dm-sans-500 - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 500;
-  src: url('/assets/fonts/dm-sans-v17-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* dm-sans-600 - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 600;
-  src: url('/assets/fonts/dm-sans-v17-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* dm-sans-600italic - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
-  font-style: italic;
-  font-weight: 600;
-  src: url('/assets/fonts/dm-sans-v17-latin-600italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* dm-sans-700 - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/assets/fonts/dm-sans-v17-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
+/* use css layers to organise the styles into different layers 
+coz its going to get longer 
 
-/* bricolage-grotesque-700 - latin */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Bricolage Grotesque';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/assets/fonts/bricolage-grotesque-v9-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* control panel for colors and font sizes */
-/* create colours */
-:root {
-    --c-neutral-900: hsl(243, 96%, 9%);
-    --c-neutral-800: hsl(243, 27%, 20%);
-    --c-neutral-700: hsl(243, 23%, 24%);
-    --c-neutral-600: hsl(243, 23%, 30%);
-    --c-neutral-300: hsl(240, 6%, 70%);
-    --c-neutral-200: hsl(250, 6%, 84%);
-    --c-neutral-0: hsl(0, 0%, 100%);
-    --c-orange-500: hsl(28, 100%, 52%);
-    --c-blue-500: hsl(233, 67%, 56%);
-    --c-blue-700: hsl(248, 70%, 36%);
-
-    /* custom color properties for designs */
-    --color-main-bg: var(--c-neutral-900);
-    --color-text-light: var(--c-neutral-0);
-    --color-text-med-light: var(--c-neutral-200);
-    --color-panel-bg-dark: var(--c-neutral-800);
-    --color-panel-bg-dark-hover: var(--c-neutral-700);
-    --color-panel-bg-med: var(--c-neutral-700);
-    --color-panel-bg-light: var(--c-neutral-600);
-    --color-panel-border: var(--c-neutral-600);
-    --color-button-bg: var(--c-blue-500);
-    --color-button-bg-hover: var(--c-blue-700);
-
-    /* properties for font size 
-     use 'rem' for font size. 
-     its moe accessible if user changes the browser
-     use calc() to convert from 96 pixels to rem
-      divide 96 pixel by 16 coz 16 pixels is 1 rem
-      and add the rem unit by multiplying it by 1
-    */
-    --fs-96: calc(96 / 16 * 1rem);
-    --fs-52: calc(52 / 16 * 1rem);
-    --fs-32: calc(32 / 16 * 1rem);
-    --fs-28: calc(28 / 16 * 1rem);
-    --fs-20: calc(20 / 16 * 1rem);
-    --fs-18: calc(18 / 16 * 1rem);
-    --fs-16: calc(16 / 16 * 1rem);
-    --fs-14: calc(14 / 16 * 1rem);
-
-    /* custom properties for font size*/
-    --font-size-h1: var(--fs-52); /*h1 tags*/
-    --font-size-dropdown: var(--fs-14); /*mobile*/
-    --font-size-search: var(--fs-20); /*search box & search button*/
-    --font-size-city: var(--fs-28); /*city name */
-    --font-size-date: var(--fs-18); /*Date */
-    --font-size-temp: var(--fs-96); /*Temperature*/
-    --font-size-temp-panel-title: var(--fs-18); /*temperature: feels like*/
-    --font-size-temp-panel-value: var(--fs-32); /*temperature: feels like*/
-    --font-size-daily-forecast-title: var(--fs-20); /*daily forecast for daily & hourly*/
-    --font-size-daily-forecast-day: var(--fs-18); /*daily forecast for days*/
-    --font-size-daily-forecast-temp: var(--fs-16); /*daily forecast temperature*/
-    --font-size-daily-forecast-dropdown: var(--fs-16); /*hourly forecast dropdown*/
-    --font-size-daily-forecast-hour: var(--fs-20); /*forecast for hour*/
-
-    /* change drop down font size for tablet
-       use calc() to convert from pixels to rems
-    */
-    @media (width >= calc(700 / 16 * 1rem)) {
-        --font-size-dropdown: var(--fs-16); /*drop-down font size for tablet*/
-    }
-        
-    
-
-
-
-}
-
-/* reset default browser styles we don't want 
-    * reset all 
-    box size will add padding and border for elements total width & height
+2 benefits of using layers:
+ - we can fold layers and hide all the styles if were not working with it.
+ - and to control specificy. 
 */
-*, 
-*::before, 
-*::after {
-    box-sizing: border-box;
-}
 
-/* get rid of all default margins that gets added to list, h and p tags */
-* {
-    margin: 0;
-}
-
-/* will prevent horizontal scrolling (so this will set boundary) */
-img {
-    max-width: 100%;
-}
-
-body {
-    font-family: "DM Sans", Arial, Helvetica, sans-serif;
+/* global layer contains: 
+font family, color properties font size properties, root, img, body and h tags */
+@layer global {
+    /* dm-sans-300 - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: url('/assets/fonts/dm-sans-v17-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+    /* dm-sans-500 - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'DM Sans';
+    font-style: normal;
     font-weight: 500;
+    src: url('/assets/fonts/dm-sans-v17-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+    /* dm-sans-600 - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: url('/assets/fonts/dm-sans-v17-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+    /* dm-sans-600italic - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'DM Sans';
+    font-style: italic;
+    font-weight: 600;
+    src: url('/assets/fonts/dm-sans-v17-latin-600italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+    /* dm-sans-700 - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/assets/fonts/dm-sans-v17-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+
+    /* bricolage-grotesque-700 - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/assets/fonts/bricolage-grotesque-v9-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+
+    /* control panel for colors and font sizes */
+    /* create colours */
+    :root {
+        --c-neutral-900: hsl(243, 96%, 9%);
+        --c-neutral-800: hsl(243, 27%, 20%);
+        --c-neutral-700: hsl(243, 23%, 24%);
+        --c-neutral-600: hsl(243, 23%, 30%);
+        --c-neutral-300: hsl(240, 6%, 70%);
+        --c-neutral-200: hsl(250, 6%, 84%);
+        --c-neutral-0: hsl(0, 0%, 100%);
+        --c-orange-500: hsl(28, 100%, 52%);
+        --c-blue-500: hsl(233, 67%, 56%);
+        --c-blue-700: hsl(248, 70%, 36%);
+
+        /* custom color properties for designs */
+        --color-main-bg: var(--c-neutral-900);
+        --color-text-light: var(--c-neutral-0);
+        --color-text-med-light: var(--c-neutral-200);
+        --color-panel-bg-dark: var(--c-neutral-800);
+        --color-panel-bg-dark-hover: var(--c-neutral-700);
+        --color-panel-bg-med: var(--c-neutral-700);
+        --color-panel-bg-light: var(--c-neutral-600);
+        --color-panel-border: var(--c-neutral-600);
+        --color-button-bg: var(--c-blue-500);
+        --color-button-bg-hover: var(--c-blue-700);
+
+        /* properties for font size 
+        use 'rem' for font size. 
+        its moe accessible if user changes the browser
+        use calc() to convert from 96 pixels to rem
+        divide 96 pixel by 16 coz 16 pixels is 1 rem
+        and add the rem unit by multiplying it by 1
+        */
+        --fs-96: calc(96 / 16 * 1rem);
+        --fs-52: calc(52 / 16 * 1rem);
+        --fs-32: calc(32 / 16 * 1rem);
+        --fs-28: calc(28 / 16 * 1rem);
+        --fs-20: calc(20 / 16 * 1rem);
+        --fs-18: calc(18 / 16 * 1rem);
+        --fs-16: calc(16 / 16 * 1rem);
+        --fs-14: calc(14 / 16 * 1rem);
+
+        /* custom properties for font size*/
+        --font-size-h1: var(--fs-52); /*h1 tags*/
+        --font-size-dropdown: var(--fs-14); /*mobile*/
+        --font-size-search: var(--fs-20); /*search box & search button*/
+        --font-size-city: var(--fs-28); /*city name */
+        --font-size-date: var(--fs-18); /*Date */
+        --font-size-temp: var(--fs-96); /*Temperature*/
+        --font-size-temp-panel-title: var(--fs-18); /*temperature: feels like*/
+        --font-size-temp-panel-value: var(--fs-32); /*temperature: feels like*/
+        --font-size-daily-forecast-title: var(--fs-20); /*daily forecast for daily & hourly*/
+        --font-size-daily-forecast-day: var(--fs-18); /*daily forecast for days*/
+        --font-size-daily-forecast-temp: var(--fs-16); /*daily forecast temperature*/
+        --font-size-daily-forecast-dropdown: var(--fs-16); /*hourly forecast dropdown*/
+        --font-size-daily-forecast-hour: var(--fs-20); /*forecast for hour*/
+
+        /* change drop down font size for tablet
+        use calc() to convert from pixels to rems
+        */
+        @media (width >= calc(700 / 16 * 1rem)) {
+            --font-size-dropdown: var(--fs-16); /*drop-down font size for tablet*/
+        }
+    }
+
+    /* reset default browser styles we don't want 
+        * reset all 
+        box size will add padding and border for elements total width & height
+    */
+    *, 
+    *::before, 
+    *::after {
+        box-sizing: border-box;
+    }
+
+    /* get rid of all default margins that gets added to list, h and p tags */
+    * {
+        margin: 0;
+    }
+
+    /* will prevent horizontal scrolling (so this will set boundary) */
+    img {
+        max-width: 100%;
+    }
+
+    body {
+        font-family: "DM Sans", Arial, Helvetica, sans-serif;
+        font-weight: 500;
+        /* all the child elements of body tag will inherit this colors */
+        background-color: var(--color-main-bg);
+        color: var(--color-text-light);
+    }
+
+    h1, h2, h3 {
+        font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
+    }
+
+    /* wrapper class : space on the side top right (like outside of tags like visually) */
+    .wrapper {
+        display: grid ;
+        /* 1fr 1fr means were sizing everything including the space with just middle column
+           calc() : first will style mobile design coz mobile was 16pixel on either side
+           and everyhting esle gets in centre.
+           So we want the middle column to be 100% of the width of the viewport 
+           minus 16 plus 16 which is 32 and will use calc() for that.
+           so, 100% - 16 *2 is 32px.
+        */
+        grid-template-columns: 1fr calc(100% - 32px) 1fr;
+
+        /* tablet(700) & desktop(1216) breakpoint (logo, dropdown and hero content)
+        desktop will be limited to 1216px wide, so even if we have larger monitor,
+        it will be limited to 1216px*/
+        @media (width >= calc(700 / 16 * 1rem)) {
+            /* 24pixel of space on either side and
+             add that together which is 48pixels of total space 
+             use min() function to choose either 100% - 48 or the 1216
+             coz when going from desktop to tablet we encounter a problem 
+             where 'units' goes to the edge and beyond so to fix that we use min()
+             so min( will choose whichever one is less
+             
+             so now it will be 100% - 48px meaning 24px on either side
+             or 1216px 
+             
+             so mobile will be 16px on either side
+             after 700(tablet mode) which is 24px on either side
+             and then it stays until the middle column is 1216(desktop mode)*/
+            grid-template-columns: 1fr min(calc(100% - 48px), calc(1216 / 16 * 1rem))  1fr;
+        }
+
+      
+
+
+        /* were going to have all the children of header wrapper
+         to be assigned to middle column 
+         so use > direct child selector 
+         and * wild card for any element
+         
+         so we do grid column line 2.
+          now the logo, dropdown and hero content
+          are assigned to middle column
+          so now we have space on the left, right 
+          and everything else is in the middle
+          (we'll have to adjust it for tablet and desktop)*/
+        > * {
+            grid-column: 2;
+        }
+
+    }
 }
 
-h1, h2, h3 {
-    font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
+/* styles for our page */
+@layer component {
+
 }
+
+
