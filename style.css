@@ -150,6 +150,7 @@ font family, color properties font size properties, root, img, body and h tags *
         /* all the child elements of body tag will inherit this colors */
         background-color: var(--color-main-bg);
         color: var(--color-text-light);
+        line-height: 1.2;
     }
 
     h1, h2, h3 {
@@ -164,9 +165,9 @@ font family, color properties font size properties, root, img, body and h tags *
           the element itself. So we need to force it to inherit from 
           the body like we have here. Plus this will stretch our button a bit. */
         font: inherit; 
-        /* we set width to 100% to control overflow for different browsers.
-           coz some browser for mobile may encounter problem where
-           text box and button overflows and goes off screen towards right*/
+        /* width for search box and search button
+        we moved width 100% from hero__search to global to control overflow
+        for tablet and desktop size,*/
         width: 100%; 
         border: none; /*for all the form elements*/
     }
@@ -257,6 +258,13 @@ font family, color properties font size properties, root, img, body and h tags *
             border: 2px solid var(--color-text-light);
         }
     }
+
+    /* space between all the sections 
+    (after search, current condition, daily forecast) */
+    .main {
+        display: grid;
+        gap: 32px;
+    }
 }
 
 /* styles for the main components for our page */
@@ -326,7 +334,7 @@ font family, color properties font size properties, root, img, body and h tags *
             /*mobile*/
             display: grid; /*by default it add rows*/ 
             gap: 12px 16px; /*row 12px, column 16px*/
-            width: 100%;
+            /* width: 100%; */ /*moved to global coz it overflows as we increase the display size from mob to tablet and desktop*/
         }
         /* input - text */
         .hero__textbox {
@@ -362,9 +370,83 @@ font family, color properties font size properties, root, img, body and h tags *
                 cursor: pointer;
             }
         }
+    }
 
+    /* section 1 */
+    .current {
+        /* city name, date, temp, current weather background image */
+        .current__weather {
+            display: flex;
+            flex-direction: column; /*mobile*/
+            gap: 16px; /*space under date*/
+            padding: 40px 24px; /*top bottom 40px, left right 24px*/
+            background-image: url("/assets/images/bg-today-small.svg");
+            background-repeat: no-repeat;
+            background-color: var(--c-blue-700);
+            background-size: cover;
+            /*by default it positions the image to center,
+             so will lose stuff on bottom,
+             coz without this the image looks bit off from side corners*/
+            background-position: center bottom; 
+            border-radius: 20px;
+            /* ensure the border radius passes through child element */
+            overflow: clip;
 
+            /* change background image on tablet */
+            @media (width >= calc(700 / 16 * 1rem)) {
+                flex-direction: row; /*city, date, temp*/
+                justify-content: space-between; /*temp*/
+                align-items: center; /*city, date*/
+                /*to cover the bottom corners*/
+                background-image: url("/assets/images/bg-today-large.svg");
+                padding-block: 83px; /*current weather - top & bottom*/
+            }
+        }
 
+        .current__location {
+            text-align: center; /*current date text*/
+        }
+
+        .current__city {
+            font-size: var(--font-size-city);
+            font-weight: 700;
+            margin-block-end: 12px; /*space under city name*/
+        }
+
+        .current__date {
+            font-size: var(--font-size-date);
+            color: var(--color-text-med-light);
+        }
+
+        /* current icon & temperature */
+        .current__info {
+            display: flex; /*side by side*/
+            align-items: center; /*temp centered*/
+            gap: 20px;
+            
+        }
+
+        /* sun incon (current weather)*/
+        .current__icon {
+            width: 120px; /*we didn't use rem for this we dont want it to scale up*/
+            height: auto;
+        }
+
+        .current__temp {
+            font-size: var(--font-size-temp);
+            line-height: 1;
+            letter-spacing: -2%; /**/
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .current__conditions {}
+
+        .current__condition {}
+
+        .current__condition-title {}
+
+        .current__condition-value {}
     }
 }
 

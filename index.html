@@ -37,8 +37,9 @@
 
   <!-- added id in main for Skip Link
     which will enable for screen redaer users and keyboard only users to
-    be able to skip to main section and able to skip the header -->
-  <main id="main">
+    be able to skip to main section and able to skip the header 
+    also added a main class to add space between sections using css-->
+  <main id="main" class="main">
     <!-- hero means: very top part of the website
      like saying what the website is about or any call to actions to do -->
     <section class="hero wrapper">
@@ -55,27 +56,29 @@
     <!-- got 3 sections city, daily & hourly forecast -->
 
     <!-- Section 1:  current weather(city name, date, temperatute), 
-                     current conditions(feels like, humidity, wind, precipitation) -->
-    <section class="current">
+                     current conditions(feels like, humidity, wind, precipitation)
+                     we've also added the wrapper class in current class to inherit 
+                     styles from wrapper to current class.  -->
+    <section class="current wrapper">
       <!-- for screen readers -->
       <h2 class="visually-hidden">Current Location Temperature</h2>
 
       <!-- city : city name, date, icon, temperature -->
-      <div class="current__weather">
+      <div class="current__weather"> <!--blue panel-->
         <!-- use flexbox : for city date on leftside and temp on right side -->
         <div class="current__location">
           <div class="current__city">Berlin, Germany</div>
           <div class="current__date">Tuesday, Aug 5, 2025</div>
         </div>
         <!-- weather icons like sunny, rainy, cloudy -->
-        <div class="current__icon">
+        <div class="current__info">
           <!--for img, alt will be added dynamically-->
-          <img src="/assets/images/icon-sunny.webp" alt="" width="320" height="320"> 
+          <img class="current__icon" src="/assets/images/icon-sunny.webp" alt="" width="320" height="320"> 
+          <!-- used span to wrap the numbers
+          and add degree afterwards coz will target span to insert number temperature
+          then will add the degree-->
+          <div class="current__temp"><span>20</span>&deg;</div> 
         </div>
-        <!-- used span to wrap the numbers
-         and add degree afterwards coz will target span to insert number temperature
-         then will add the degree-->
-        <div class="current__temp"><span>20</span>&deg;</div> 
       </div>
 
       <!-- current conditions (different panels): feels like, humidity, wind, precipitation
