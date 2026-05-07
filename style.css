@@ -156,7 +156,8 @@ font family, color properties font size properties, root, img, body and h tags *
         font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
     }
 
-    /* wrapper class : space on the side top right (like outside of tags like visually) */
+    /* wrapper class : space on the side top right (like outside of tags like visually) 
+       this will be our helper class which we'll use throughout the site*/
     .wrapper {
         display: grid ;
         /* 1fr 1fr means were sizing everything including the space with just middle column
@@ -187,10 +188,6 @@ font family, color properties font size properties, root, img, body and h tags *
              and then it stays until the middle column is 1216(desktop mode)*/
             grid-template-columns: 1fr min(calc(100% - 48px), calc(1216 / 16 * 1rem))  1fr;
         }
-
-      
-
-
         /* were going to have all the children of header wrapper
          to be assigned to middle column 
          so use > direct child selector 
@@ -201,17 +198,66 @@ font family, color properties font size properties, root, img, body and h tags *
           are assigned to middle column
           so now we have space on the left, right 
           and everything else is in the middle
-          (we'll have to adjust it for tablet and desktop)*/
+          (we'll have to adjust it for tablet and desktop,
+          using media queries, which is above this code)*/
         > * {
             grid-column: 2;
         }
+    }
 
+    /* Screen Readers
+       Jump link or Skip Link (skip to main content)
+       this will be our helper class similar to wrapper class
+       which will reuse throughout the site.
+
+       Hide elements visually: moving them off-screen
+       we use left -10000px to move it off screen
+       we set width and height to 1px coz 
+       if we set to 0 then its not going to exist in the DOM anymore,
+       so it wont be visible or navigable by screen readers.
+       and overflow to hidden so nothing inside it can extend out.
+       
+       we get this class from website called 'accessibility developer guide'
+    */
+    .visually-hidden {
+        position: absolute;
+        left:     -10000px;
+        top:      auto;
+        width:    1px;
+        height:   1px;
+        overflow: hidden;
+
+        /* keyboard users
+           use '&' before class otherwise it wont show up in browser,
+           coz without & it will be on same element
+           if it has focus, so we use pseudo class:focus,
+           then */
+        &.skip-link:focus {
+            left: 0;
+            width: auto;
+            height: auto;
+            background-color: var(--color-main-bg);
+            color: var(--color-text-light);
+            padding: 10px;
+            border: 2px solid var(--color-text-light);
+        }
     }
 }
 
-/* styles for our page */
+/* styles for the main components for our page */
 @layer component {
+    /* for all the header style, will nest inside this header class selector
+       this is to prevent the conflicts with our styles.
+       so all styles here will only take effect inside 
+       an element that has a class of header which will only 
+       exist in this header tag*/
+    .header {
+        .header__homelink {}
 
+        .header__logo {}
+
+        .header__dropdown {}
+    }
 }
 
 

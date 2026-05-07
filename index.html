@@ -16,15 +16,18 @@
   </style>
 </head>
 <body>
-  <!-- hide skip with css -->
-  <a href="#main" class="visually-hidden">Skip to main content</a>
+  <!-- hide skip with css 
+   visually-hidden class for screen reader and skip-link for keyboard users
+   so if one use a keyboard and use tab to navigate then
+   we want to be able to see the link visually if it gets focused with tabbing-->
+  <a href="#main" class="visually-hidden skip-link">Skip to main content</a>
 
-  <header class="wrapper">
-    <a href="/">
-      <img src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
+  <header class="header wrapper">
+    <a class="header__homelink" href="/">
+      <img class="header__logo" src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
     </a>
 
-    <select name="units" id="units">
+    <select class="header__dropdown" name="units" id="units">
       <option value="">Units</option>
     </select>
   </header>
