@@ -498,6 +498,13 @@ font family, color properties font size properties, root, img, body and h tags *
             /*space between 7 individual panels
              which are spread across 3 columns*/
             gap: 16px; 
+
+            /* tablet */
+            @media (width >= calc(700 / 16 * 1rem)) {
+                /* this will change 3 columns for mobile to
+                 7 columns for tablet size */
+                grid-template-columns: repeat(7, 1fr); 
+            }
         }
 
         /*inside block*/
