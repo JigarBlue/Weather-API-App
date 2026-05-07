@@ -84,43 +84,51 @@
       <!-- current conditions (different panels): feels like, humidity, wind, precipitation
         this will contain the panels (plural) -->
       <div class="current__conditions">
-        <!-- singular like it will hold text and number -->
-        <div class="current__condition">
+        <!-- singular like it will hold text and number
+         added block class to inherit styles for 4 individual
+         current_condition panels from css global 
+         coz condition and daily forecast uses same bg color and border style -->
+        <div class="block current__condition">
           <p class="current__condition-title">Feels Like</p>
           <!-- use id when using javascript to change something
             we can target theses id's in js -->
           <p id="feelsLike" class="current__condition-value">18&deg;</p>
         </div>
 
-        <div class="current__condition">
+        <div class="block current__condition">
           <p class="current__condition-title">Humidity</p>
           <p id="humidity" class="current__condition-value">46%</p>
         </div>
 
-        <div class="current__condition">
+        <div class="block current__condition">
           <p class="current__condition-title">Wind</p>
           <p id="wind" class="current__condition-value">14 km/h</p>
         </div>
 
-        <div class="current__condition">
+        <div class="block current__condition">
           <p class="current__condition-title">Precipitation</p>
           <p id="precipitation" class="current__condition-value">0 mm</p>
         </div>
       </div>
     </section>
 
-    <!-- Section 2 : Daily forecast  -->
-    <section class="daily">
+    <!-- Section 2 : Daily forecast
+        added wrapper class to inherit styles from wrapper class
+        to daily class (daily forecast) -->
+    <section class="daily wrapper">
       <!-- add section_title class to reuse for the hourly forecast and
        daily_title class for any daily specific styles we might need -->
       <h2 class="section__title daily__title">Daily forecast</h2>
         <!-- daily_forecast will contain the individual days -->
         <div class="daily__forecast">
 
-          <div class="daily__day">
+          <!-- added block class for all daily__day class
+           to inherit styles from block class to all daily__day class
+           coz condition and daily forecast uses same bg color and border style -->
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -131,10 +139,10 @@
 
           <!-- will keep everyhitng same here, coz will change it dynamically -->
 
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -143,10 +151,10 @@
             </div>
           </div>
 
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -155,10 +163,10 @@
             </div>
           </div>
 
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -167,10 +175,10 @@
             </div>
           </div>
 
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -179,10 +187,10 @@
             </div>
           </div>
 
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -191,10 +199,10 @@
             </div>
           </div>
 
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <!--for img, alt will be added dynamically depending on what the image is-->
-            <img src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+            <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
             <!-- will use flex container coz we got two different temp degrees in one
              one on left side and another on right side within same panel-->
             <div class="daily__day-temps">
@@ -205,8 +213,10 @@
         </div>
     </section>
 
-    <!-- Section 3 : Hourly forecast  -->
-    <section class="hourly">
+    <!-- Section 3 : Hourly forecast
+        added wrapper class to inherit styles from wrapper class
+        to hourly class (hourly forecast)   -->
+    <section class="hourly wrapper">
       <!-- header section (dropdown day list) for hourly forecast -->
       <div class="hourly__header">
         <h2 class="section__title hourly__title">Hourly forecast</h2>

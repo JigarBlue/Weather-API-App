@@ -110,11 +110,11 @@ font family, color properties font size properties, root, img, body and h tags *
         --font-size-temp: var(--fs-96); /*Temperature*/
         --font-size-panel-title: var(--fs-18); /*temperature: feels like*/
         --font-size-panel-value: var(--fs-32); /*temperature: feels like*/
-        --font-size-daily-forecast-title: var(--fs-20); /*daily forecast for daily & hourly*/
-        --font-size-daily-forecast-day: var(--fs-18); /*daily forecast for days*/
-        --font-size-daily-forecast-temp: var(--fs-16); /*daily forecast temperature*/
-        --font-size-daily-forecast-dropdown: var(--fs-16); /*hourly forecast dropdown*/
-        --font-size-daily-forecast-hour: var(--fs-20); /*forecast for hour*/
+        --font-size-forecast-title: var(--fs-20); /*daily forecast for daily & hourly*/
+        --font-size-forecast-day: var(--fs-18); /*daily forecast for days*/
+        --font-size-forecast-temp: var(--fs-16); /*daily forecast temperature*/
+        --font-size-forecast-dropdown: var(--fs-16); /*hourly forecast dropdown*/
+        --font-size-forecast-hour: var(--fs-20); /*forecast for hour*/
 
         /* change drop down font size for tablet
         use calc() to convert from pixels to rems
@@ -153,7 +153,8 @@ font family, color properties font size properties, root, img, body and h tags *
         line-height: 1.2;
     }
 
-    h1, h2, h3 {
+    /* How's the sky looking today? */
+    h1 {
         font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
     }
 
@@ -264,6 +265,16 @@ font family, color properties font size properties, root, img, body and h tags *
     .main {
         display: grid;
         gap: 32px;
+    }
+
+    /* helper class for condition class 4 panels: 
+    feels like, humidity, wind, prcipitation
+    and for daily__forecast class. 
+    as it uses same bg color and border styles*/
+    .block {
+        background-color: var(--color-panel-bg-dark);
+        border: 1px solid var(--color-panel-border);
+        border-radius: 12px;
     }
 }
 
@@ -456,9 +467,6 @@ font family, color properties font size properties, root, img, body and h tags *
         }
         /* 4 individual panels for feels like and so on... */
         .current__condition {
-            background-color: var(--color-panel-bg-dark);
-            border: 1px solid var(--color-panel-border);
-            border-radius: 12px;
             padding: 20px; /*all around*/
         }
 
@@ -471,6 +479,66 @@ font family, color properties font size properties, root, img, body and h tags *
         .current__condition-value {
             font-size: var(--font-size-panel-value);
             font-weight: 300;
+        }
+    }
+
+/* ************************************************************************************************** */
+
+    /* Section2: daily forecast */
+    .daily {
+        .daily__title {
+            font-size: var(--font-size-forecast-title);
+            margin-block-end: 20px; /*space under title*/
+        }
+
+        /* mobile: all forecast 7 panels */
+        .daily__forecast{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /*3 columns*/
+            /*space between 7 individual panels
+             which are spread across 3 columns*/
+            gap: 16px; 
+        }
+
+        /*inside block*/
+        .daily__day {
+            display: grid;
+            /* 'justify-items will align horizontally'
+              align-items will align vertically */
+            justify-items: center; /*icon */
+            gap: 16px; /*inside: space under, day title and icon*/
+            padding: 16px 10px; 
+            text-align: center; /*day and temp*/
+        }
+
+        .daily__day-title {
+            font-size: var(--font-size-forecast-day);
+        }
+
+        .daily__day-icon {
+            width: 60px;
+            height: auto;
+        }
+
+        /* inside daily forecast block */
+        .daily__day-temps{
+            /* daily_day temp class is child of grid daily_day class
+             and we have added grid for daily_day class
+             so by default we have centred the two temps using grid.
+             which means adding 'justify-content space between'
+             will not add space between temps, coz we've used flex for daily_day-temps class.
+             so will use grid property 'self stretch' here to add space between two diff temps 
+             and move them sdie by side*/
+            justify-self: stretch; /*placed at top of flex coz its grid child property*/
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--font-size-forecast-temp);
+        }
+
+        .daily__day-high{}
+
+        .daily__day-low{
+            color: var(--color-text-med-light);
         }
     }
 }
