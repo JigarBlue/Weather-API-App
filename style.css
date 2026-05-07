@@ -108,8 +108,8 @@ font family, color properties font size properties, root, img, body and h tags *
         --font-size-city: var(--fs-28); /*city name */
         --font-size-date: var(--fs-18); /*Date */
         --font-size-temp: var(--fs-96); /*Temperature*/
-        --font-size-temp-panel-title: var(--fs-18); /*temperature: feels like*/
-        --font-size-temp-panel-value: var(--fs-32); /*temperature: feels like*/
+        --font-size-panel-title: var(--fs-18); /*temperature: feels like*/
+        --font-size-panel-value: var(--fs-32); /*temperature: feels like*/
         --font-size-daily-forecast-title: var(--fs-20); /*daily forecast for daily & hourly*/
         --font-size-daily-forecast-day: var(--fs-18); /*daily forecast for days*/
         --font-size-daily-forecast-temp: var(--fs-16); /*daily forecast temperature*/
@@ -378,7 +378,9 @@ font family, color properties font size properties, root, img, body and h tags *
         .current__weather {
             display: flex;
             flex-direction: column; /*mobile*/
+            place-items: center; /*sun icon and temperature for tablet and dektop*/
             gap: 16px; /*space under date*/
+            margin-block-end: 20px; /*space under current weather bg image*/
             padding: 40px 24px; /*top bottom 40px, left right 24px*/
             background-image: url("/assets/images/bg-today-small.svg");
             background-repeat: no-repeat;
@@ -440,13 +442,36 @@ font family, color properties font size properties, root, img, body and h tags *
             font-style: italic;
         }
 
-        .current__conditions {}
+        /* parent - section1: contains feels like, humidity, wind, precipitation */
+        .current__conditions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /*mobile 2 columns*/
+            gap: 16px; /*space between 4 individuals*/
 
-        .current__condition {}
+            /* tablet from clumn to row */
+            @media (width >= calc(700 / 16 * 1rem)) {
+                grid-template-columns: repeat(4, 1fr);
+            }
 
-        .current__condition-title {}
+        }
+        /* 4 individual panels for feels like and so on... */
+        .current__condition {
+            background-color: var(--color-panel-bg-dark);
+            border: 1px solid var(--color-panel-border);
+            border-radius: 12px;
+            padding: 20px; /*all around*/
+        }
 
-        .current__condition-value {}
+        .current__condition-title {
+            font-size: var(--font-size-panel-title);
+            color: var(--color-text-med-light);
+            margin-block-end: 24px; /*space under condition title*/
+        }
+
+        .current__condition-value {
+            font-size: var(--font-size-panel-value);
+            font-weight: 300;
+        }
     }
 }
 
