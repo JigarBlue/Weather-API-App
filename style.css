@@ -486,6 +486,7 @@ font family, color properties font size properties, root, img, body and h tags *
 
     /* Section2: daily forecast */
     .daily {
+
         .daily__title {
             font-size: var(--font-size-forecast-title);
             margin-block-end: 20px; /*space under title*/
@@ -546,6 +547,98 @@ font family, color properties font size properties, root, img, body and h tags *
 
         .daily__day-low{
             color: var(--color-text-med-light);
+        }
+    }
+
+/* ************************************************************************************************** */
+    
+    /* Section3: hourly forecast */
+    /* hourly class */
+    .hourly {
+
+        /* inside the hourly class div */
+        .hourly__content {
+            background-color: var(--color-panel-bg-dark);
+            border-radius: 20px;
+            padding: 20px 16px; /*top & bottom 20px, both sides 16px*/
+        }
+        
+        /* forecast title & day dropdown */
+        .hourly__header {
+            /*moves dropdown day from bottom to top right side 
+            beside hourly forecast header*/
+            display: flex; 
+            /*adds space between forecast title and day dropdown*/
+            justify-content: space-between; 
+            align-items: center; /*hourly day dropdown - this also changes height*/
+            margin-block-end: 16px; /*space under forecast title and day dropdown*/
+
+        }
+
+        .hourly__title {
+            font-size: var(--font-size-forecast-title);
+            /* by default H tag font weight are set to bold in browser
+            so will change it to semi-bold here for title
+            semi-bold is less than bold which is 600 */
+            font-weight: 600;
+        }
+
+        /* dropdown */
+        .hourly__select {}
+
+        .hourly__select-day {}
+
+        /* hourly_hours will be grid parent
+        coz hourly_hour are children of hourly_hours 
+        and will not add columns for mobile size*/
+        .hourly__hours{
+            display: grid;
+            gap: 16px; /*gap under each hourly_hour class (under temp)*/
+        }
+
+        /* inside hourly hour where the icon, time, temp is placed
+         so under hourly_forecast class and hourly day dropdown
+         basically the hourly_hour div*/
+        .hourly__hour {
+            display: grid;
+            /* icon and all should be same size
+             so will do: auto for icon, auto for time, 
+             degree will be 1fr which will take the rest of the grid 
+             this will also move time and degree at the top right side beside icon
+             for each hourly_hour class*/
+            grid-template-columns: auto auto 1fr;
+            gap: 8px; /*add space between icon, time and degree*/
+            /* use flex 'align-item' property to
+             vertically align the time and degree in centre*/
+            align-items: center;
+            /* inside hourly_hour class*/
+            padding: 10px 16px 10px 12px; /*top 10px, right 16px, bottom 10px, right 12px*/
+            background-color: var(--color-panel-bg-med);
+            border: 1px solid var(--color-panel-border); /*border for hourly_hour div*/
+            border-radius: 8px;
+        }
+
+        .hourly__hour-icon {
+            /* we already set the width and height in html attribute
+            but we should not depend on html and
+            its always better to style it in css */
+            width: 40px;
+            height: auto;
+        }
+
+        .hourly__hour-time {
+            font-size: var(--font-size-forecast-hour);
+
+        }
+
+        .hourly__hour-temp {
+            font-size: var(--font-size-forecast-temp);
+            /* we have the biggest column for degree 
+            coz in hourly_hour class, we set the 'grid-column : degree' to '1fr'
+            but we can change it and add the space between them in this class
+            using grid property 'justify self' 
+            which will move degree at the end of the column*/
+            justify-self: end;
         }
     }
 }
