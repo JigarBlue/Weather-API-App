@@ -48,7 +48,7 @@ Building a resposnive weather app challenge from Frontend Mentor using provided 
 ## ✅ Current Progress
 
 - [x] Projext steup
-- [n] HTML structure (in progress)
+- [ ] HTML structure (in progress)
 - [ ] CSS styling (in progress)
 - [ ] Mobile-first responsiveness layout (in progress)
 - [ ] JavaScript functionality (not started)
