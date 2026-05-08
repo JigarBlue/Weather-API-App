@@ -69,10 +69,3 @@ This project is helping me improve my responsive design workflow, CSS architectu
 Coming soon...
 
 ---
-
-## 📷 Current UI Preview
-
-> UI built with HTML & CSS.
-> Functionality and API integration are still in progress.
-
-![Weather App Preview] (./assets/work-in-progress-UI)
