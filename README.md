@@ -74,4 +74,5 @@ Coming soon...
 
 > UI built with HTML & CSS.
 > Functionality and API integration are still in progress.
-> ![Screenshot] (./assets/images/current-progress-UI.png)
+
+[View Current Progress UI] (./assets/images/current-progress-UI.png)
