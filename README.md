@@ -74,5 +74,4 @@ Coming soon...
 
 > UI built with HTML & CSS.
 > Functionality and API integration are still in progress.
-
-! [Weather App Preview] (./assets/images/current-progress-UI)
+> ![Screenshot] (./assets/images/current-progress-UI.png)
