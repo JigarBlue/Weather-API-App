@@ -264,7 +264,38 @@ font family, color properties font size properties, root, img, body and h tags *
     (after search, current condition, daily forecast) */
     .main {
         display: grid;
-        gap: 32px;
+        /* will remove the gap between columns,
+        just between rows to add space between sections
+        so will set column gap to 0 */
+        gap: 32px 0;
+
+        /* desktop */
+        @media (width >= calc(1000 / 16 * 1rem)) {
+            /* will make 3 columns of equal width and 
+            will make hourly forecast take up last column and then
+            will make the current forecast take first two columns */
+            grid-template-columns: repeat(3, 1fr);
+                /* with 3columns and 1fr added so, 
+                   currently, main title and hourly forecast is on 1st column 
+                   so main title and search box an dbutton is on 1st row
+                   and hourly forecast is on 4th row (1st column)
+                   current weather and condition is on 2nd column (2nd row)
+                   daily forecast is on 3rd column (3rd row) */
+
+            /* will create a diagram of the grid
+            so in quotes "" is each rows. so 1 line is going to be 1 row.
+            will call it current daily and hourly as the name of the areas 
+            and then will add these names to each of them in layer components.
+            */
+            grid-template-areas: 
+                /* first section row */
+                "hero hero hero"
+                /* current will take 2 columns and hourly will take last column */
+                "current current hourly"
+                /* in second row daily daily and hourly*/
+                "daily daily hourly"
+        }
+
     }
 
     /* helper class for condition class 4 panels: 
@@ -321,6 +352,15 @@ font family, color properties font size properties, root, img, body and h tags *
 
     /* mobile: styles for h tags */
     .hero {
+
+        /* with grid area added in layer component hero class(we have 3 columns and 6 rows),
+           so now,
+           main title and search box and button is on 2nd column (2nd row) 
+           and 1st row and 3rd row is empty
+           current weather and condition is on 1st column (4th row) (above 1st row is empty)
+           daily forecast is on 2nd column (5th row)
+           hourly forecast is on 3rd column (last 6th row) (above 3rd row is empty) */
+        grid-area: hero; 
 
         .hero__content {
             display: grid; /*tablet*/
@@ -385,6 +425,16 @@ font family, color properties font size properties, root, img, body and h tags *
 
     /* section 1 */
     .current {
+        /* with grid area added in layer component current class (we have 3 columns and 9 rows),
+         now main title and search box is on same place (2nd column, 2nd row, (1st and 3rd row is empty))
+         current weather and condition is split between two columns (1st and 2nd) (4th and 5th row)
+         current weather: city name, date and condition: feels like and humidity is on 1st column(4th row)
+         while current weather icon and degree(temp) and condition: wind and precipitation is on 2nd column(5th row)
+         daily forecast is on 3rd column (6th row) (above 3rd is empty)
+         hourly forecast is on 1st column (7th row) (side rows 8 and 9 are empty)
+         */
+        grid-area: current;
+
         /* city name, date, temp, current weather background image */
         .current__weather {
             display: flex;
@@ -487,6 +537,16 @@ font family, color properties font size properties, root, img, body and h tags *
     /* Section2: daily forecast */
     .daily {
 
+        /* with grid area added in layer component daily class (we have same 3 columns and 9 rows)
+           main title and search box is on same place (2nd column, 2nd row, (1st and 3rd row is empty))
+           current weather and condition is also same split between two columns (1st and 2nd) (4th and 5th row)
+           however, now the daily forecast is on 1st and 2nd column split between two columns
+           so, there are total 7 blocks in daily forecast so 3 and half on 1st column and
+           rest 3 and half is on 2nd column (half on 7th row and half on 8th row) and beside it last row 9 is empty
+           and hourly forecast is on 3rd column (6th row) (above 3rd row is empty and below 9th row is empty)
+        */
+        grid-area: daily;
+
         .daily__title {
             font-size: var(--font-size-forecast-title);
             margin-block-end: 20px; /*space under title*/
@@ -555,6 +615,20 @@ font family, color properties font size properties, root, img, body and h tags *
     /* Section3: hourly forecast */
     /* hourly class */
     .hourly {
+
+        /* with grid area added in layer component hourly class (we have same 3 columns and 9 rows)
+         title and search box, button is same (2nd column, 2nd row) (1st and 3rd rows are empty)
+         which means thows rows belongs to title and search box and button coz will be chamging from
+         desktop to tablet and to mobile size
+         current weather and conition is same (split in halfs) (1st, 2nd column) (4th and 5th row)
+         daily forecast is also same (split in half) (1st and 2nd column) (row 7 and 8)
+         however now the hourly forecast is split between 2 rows, column is same 3rd one, 
+         it contains total 8 blocks. now 5 blocks are in row 6th and other 3 are on last row.
+         overally (horizontally):
+         main title and search is on 1st part of screen
+         current weather, condition, and 5 blocks of hourly forecast is on 2nd part of screen
+         daily forecast and 3 blocks of hourly forecast is on 3rd part of screen */
+        grid-area: hourly;
 
         /* inside the hourly class div */
         .hourly__content {
