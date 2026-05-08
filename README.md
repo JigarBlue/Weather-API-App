@@ -48,9 +48,10 @@ Building a resposnive weather app challenge from Frontend Mentor using provided 
 ## ✅ Current Progress
 
 - [x] Project steup
-- [ ] HTML structure (in progress)
-- [ ] CSS styling (in progress)
-- [ ] Mobile-first responsiveness layout (in progress)
+- [x] HTML structure
+- [x] CSS styling
+- [x] Mobile-first responsiveness layout
+- [ ] UI refinements
 - [ ] JavaScript functionality [not started]
 - [ ] Weather API integration [not started]
 - [ ] Search functionality [not started]
@@ -69,6 +70,9 @@ Coming soon...
 
 ---
 
-## 📷 Screenshots
+## 📷 Current UI Preview
 
-Screenshots will be added once the UI development is complete.
+> UI built with HTML & CSS.
+> Functionality and API integration are still in progress.
+
+![Weather App Preview] (./assets/images/work-in-progress-UI)
