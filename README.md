@@ -52,8 +52,8 @@ Building a resposnive weather app challenge from Frontend Mentor using provided 
 - [x] CSS styling
 - [x] Mobile-first responsiveness layout
 - [ ] UI refinements
-- [ ] JavaScript functionality [not started]
-- [ ] Weather API integration [not started]
+- [ ] JavaScript functionality [in progress]
+- [ ] Weather API integration [in progress]
 - [ ] Search functionality [not started]
 - [ ] Final responsivness testing
 - [ ] Deployment
