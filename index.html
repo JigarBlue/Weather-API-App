@@ -8,6 +8,8 @@
   
   <title>Frontend Mentor | Weather app</title>
   <link rel="stylesheet" href="/style.css">
+  <!-- defer will make sure the javascript loads after the website-->
+  <script src="/script.js" defer></script>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet -->
   <style>
@@ -28,9 +30,11 @@
       <a class="header__homelink" href="/">
         <img class="header__logo" src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
       </a>
-
-      <select class="header__dropdown" name="units" id="units">
+      <!-- Unit dropdown lists -->
+      <select class="header__dropdown" name="units" id="ddlUnits">
         <option value="">Units</option>
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
       </select>
     </div>
   </header>
@@ -69,8 +73,10 @@
         <div class="current__weather"> <!--blue panel-->
           <!-- use flexbox : for city date on leftside and temp on right side -->
           <div class="current__location">
-            <div class="current__city">Berlin, Germany</div>
-            <div class="current__date">Tuesday, Aug 5, 2025</div>
+            <!-- use id coz were going to update it with javascript. 
+             dv as in div tag -->
+            <div id="dvCityCountry" class="current__city">Berlin, Germany</div>
+            <div id="dvCurrDate" class="current__date">Tuesday, Aug 5, 2025</div>
           </div>
           <!-- weather icons like sunny, rainy, cloudy -->
           <div class="current__info">
@@ -79,7 +85,7 @@
             <!-- used span to wrap the numbers
             and add degree afterwards coz will target span to insert number temperature
             then will add the degree-->
-            <div class="current__temp"><span>20</span>&deg;</div> 
+            <div id="dvCurrTemp" class="current__temp"><span>20</span>&deg;</div> 
           </div>
         </div>
 
