@@ -70,8 +70,8 @@ Coming soon...
 
 ---
 
-## 📷 Current UI Preview
+## 📷 Test Screenshots UI Preview
 
 - UI built with HTML & CSS.
 - Functionality and API integration are still in progress.
-- [View Current Progress UI] (./assets/images/current-progress-UI.png)
+- [View Current Progress UI] (./assets/test-screenshots/)
