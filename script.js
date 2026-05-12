@@ -9,7 +9,7 @@ let cityName, countryName;
 
 
 async function getGeoData() {
-    let search = "england, london";
+    let search = "london, england";
 
     /*will use string template literals for our url so will use bacltick `` instead of double quotes for url, 
     coz by using backticks, it will enable us to load the value of our search variable
@@ -113,10 +113,34 @@ async function getWeatherData(lat, lon) {
         }
 
         const result = await response.json();
-        console.log(result);
+        //console.log(result);
+
+        //new function for current weather temperature and result will be the parameter
+        loadWeatherData(result); 
     } catch (error) {
         console.error(error.message);
     }
+}
+
+//current temperature function
+function loadWeatherData(weather) {
+    //check if its loaded
+    console.log(weather);
+    /* will get current temp div and use textContent property
+     and use our weather parameter to get current temperature.
+     will get the current temperature from API calls (latitude & longitude)
+    in current field called apparent_temperature. 
+    
+    To add the degree for temperature will use 
+    template literal '${}' on our `${weather.apparent_temperature}
+    and we dont have to add &deg here coz we have already added 
+    an 'id dvCurrTemp' in html <span> tag, and were targeting that from here`
+    
+    To remove the decimal from our temperature use Math.round()*/
+    dvCurrTemp.textContent = `${Math.round(weather.current.apparent_temperature)}`;
+    
+
+
 }
 getGeoData();
 
