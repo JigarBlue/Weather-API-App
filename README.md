@@ -4,7 +4,7 @@
 
 ## 🚧 Work in progress
 
-Building a resposnive weather app challenge from Frontend Mentor using provided UI design markups for mobile, tablet, and desktop layouts while developing all HTML, CSS and JavaScript from sratch.
+Building a resposnive weather app challenge from Frontend Mentor using provided UI design markups for mobile, tablet, and desktop layouts while developing all HTML, CSS and JavaScript from scratch.
 
 👨‍💻 I'm making regular commits so the project's progress and development updates will be visible here on GitHub. Currently focused on styling and responsive layout design, with JavaScript functionality and API integration coming soon.
 
