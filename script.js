@@ -1,8 +1,20 @@
-//load all the elements as const
+/*load all the elements as const */
+//Units: Celcius & Fahrenhiets 
 const ddlUnits = document.querySelector("#ddlUnits"); /*dropdown units*/
+
+// address & date 
 const dvCityCountry = document.querySelector("#dvCityCountry"); /*city & country name */
 const dvCurrDate = document.querySelector("#dvCurrDate"); /*current date */
+
+// Current Temperature 
 const dvCurrTemp = document.querySelector("#dvCurrTemp"); /*current temperature */
+
+// Cuurent Condition: Feels like, Humidity, Wind, Precipitation
+const pFeelsLike = document.querySelector("#pFeelsLike"); /*Feels Like */
+const pHumidity = document.querySelector("#pHumidity"); /*Humidity */
+const pWind = document.querySelector("#pWind"); /*Wind */
+const pPrecipitation = document.querySelector("#pPrecipitation"); /*Precipitation */
+
 
 //variables for locations (use let coz will be changing city & country names)
 let cityName, countryName;
@@ -88,12 +100,12 @@ async function getWeatherData(lat, lon) {
     //  when we select fehreneit it will change
     // default will be celcius
     let tempUnit = "celsius";
-    let windUnit = "kmh";
+    let windUnit = "mph";
     let precipUnit = "mm";
     // if toggle value = F
     if (ddlUnits.value === "F") {
         tempUnit = "fahrenheit";
-        windUnit = "mph";
+        windUnit = "kmh";
         precipUnit = "inch"; 
     }
    
@@ -104,7 +116,7 @@ async function getWeatherData(lat, lon) {
 */
     // were getting data from this url
 
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,precipitation,wind_speed_10m&wind_speed_10m&wind_speed_unit=${windUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipUnit}`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,precipitation,wind_speed_10m&wind_speed_unit=${windUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipUnit}`;
     
     try {
         const response = await fetch(url);
@@ -131,14 +143,35 @@ function loadWeatherData(weather) {
      will get the current temperature from API calls (latitude & longitude)
     in current field called apparent_temperature. 
     
-    To add the degree for temperature will use 
-    template literal '${}' on our `${weather.apparent_temperature}
-    and we dont have to add &deg here coz we have already added 
-    an 'id dvCurrTemp' in html <span> tag, and were targeting that from here`
+    We dont have to use template literal here for few of 'em coz 
+    we've added the degrees inside the HTML.
+    we have already added an 'id dvCurrTemp' in html <span> tag, 
+    and were targeting that from here`.
     
     To remove the decimal from our temperature use Math.round()*/
-    dvCurrTemp.textContent = `${Math.round(weather.current.apparent_temperature)}`;
+    dvCurrTemp.textContent = Math.round(weather.current.temperature_2m);
     
+    //load cuurent conditions feels like
+    pFeelsLike.textContent = Math.round(weather.current.apparent_temperature);
+    //humidity
+    pHumidity.textContent = weather.current.relative_humidity_2m;
+    /*Wind
+     will be using template literal for Wind coz were adding a symbol or
+     were joining this variables with space between them 
+     so first will get 'wind_speed_10m' from 'current' field which will display a number and 
+     then create another template literal 
+     and then to display km/h or mp/h will get 'wind_speed_10m' from 'current_unit' field.
+     
+     will also use a replace() method to remove character from string
+     basically to remove slash from mp/h 
+     so we replace "mp/h" with "mph"
+     and math.round() to remove decimal point*/
+    pWind.textContent = `${Math.round(weather.current.wind_speed_10m)} ${weather.current_units.wind_speed_10m.replace("mp/h", "mph")}`;
+
+    /*Precipitation
+     we added a replace() method for current_units precipitation to change "inch" with "in" coz 
+     if user select fahrenheit as Unit, then we want it to display "in" instead of "inch" for Precipitation. */
+    pPrecipitation.textContent = `${weather.current.precipitation} ${weather.current_units.precipitation.replace("inch", "in")}`;
 
 
 }

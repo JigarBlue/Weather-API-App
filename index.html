@@ -98,24 +98,26 @@
           coz condition and daily forecast uses same bg color and border style -->
           <div class="block current__condition">
             <p class="current__condition-title">Feels Like</p>
-            <!-- use id when using javascript to change something
-              we can target theses id's in js -->
-            <p id="feelsLike" class="current__condition-value">18&deg;</p>
+            <!-- use id name starting with p 'p for paragraph'
+             when using javascript to change something
+              we can target theses id's in js 
+              and span tags for id-->
+            <p class="current__condition-value"><span id="pFeelsLike"></span>&deg;</p>
           </div>
 
           <div class="block current__condition">
             <p class="current__condition-title">Humidity</p>
-            <p id="humidity" class="current__condition-value">46%</p>
+            <p class="current__condition-value"><span id="pHumidity"></span>%</p>
           </div>
 
           <div class="block current__condition">
             <p class="current__condition-title">Wind</p>
-            <p id="wind" class="current__condition-value">14 km/h</p>
+            <p id="pWind" class="current__condition-value"></p>
           </div>
 
           <div class="block current__condition">
             <p class="current__condition-title">Precipitation</p>
-            <p id="precipitation" class="current__condition-value">0 mm</p>
+            <p id="pPrecipitation" class="current__condition-value"></p>
           </div>
         </div>
       </section>
