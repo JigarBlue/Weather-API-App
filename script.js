@@ -175,7 +175,72 @@ function loadWeatherData(weather) {
 
 
 }
+
+/*update weather icons:
+
+*/
+function getWeatherFileName(code) {
+    /*check weather variable documentation for 
+    Weather interpretion codes on open-meteo site
+        sunny -    0 
+        partly-cloudy - 1, 2
+        overcast - 3
+        fog -     45, 48
+        drizzle - 51, 53, 55, 56, 57 
+        rain -     61, 63, 65, 66, 67, 80, 81, 82
+        snow -     71, 73, 75, 77, 85, 86
+        storm -    95, 96, 99 */
+    /*create a table, and if we get code number 51, 
+      return icon.drizzle.webp (icon file name)
+      so any of the drizzle code numbers should return drzzile */
+    //create object
+    const weatherCodes = {
+        //store
+        0 : "sunny",
+        1 : "partly-cloudy",
+        2 : "partly-cloudy",
+        3 : "overcast",
+        45 : "fog",
+        48 : "fog",
+        51 : "drizzle",
+        53 : "drizzle",
+        55 : "drizzle",
+        56 : "drzzle",
+        57 : "drizzle",
+        61 : "rain",
+        63 : "rain",
+        65 : "rain",
+        66 : "rain",
+        67 : "rain",
+        80 : "rain",
+        81 : "rain",
+        82 : "rain",
+        71 : "snow",
+        73 : "snow",
+        75 : "snow",
+        77 : "snow",
+        85 : "snow",
+        86 : "snow",
+        95 : "storm",
+        96 : "storm",
+        99 : "storm",
+    };
+
+    let fileName = `icon-${weatherCodes[code]}.webp`; //image file name
+
+    return fileName;
+    //return weatherCodes[code];
+
+}
+
 getGeoData();
+
+console.log(getWeatherFileName(1)); //call getWeatherFileName(code) 
+
+/** we need to loop through our daily forecast data
+ * and we need go to our api call and open weather object
+ * and we've already used current and current_units now, will use daily 
+ */
 
 
 
