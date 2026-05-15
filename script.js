@@ -38,7 +38,7 @@ async function getGeoData() {
         }
 
         const result = await response.json();
-        console.log(result);
+        //console.log(result);
         /* will get lat and lon from here.
         latitude and logitude is in first item of array index 0 
         so, result which is whole array and 
@@ -49,12 +49,11 @@ async function getGeoData() {
 
         loadLocationData(result);
         getWeatherData(lat, lon); //if response is sucessfull then call getWeatherData()
-        
+
     } catch (error) {
         console.error(error.message);
     }
 }
-
 
 //load location data with location
 function loadLocationData(locationData) {
@@ -73,13 +72,13 @@ function loadLocationData(locationData) {
         year: "numeric",
         month: "short",
         day: "numeric",
-        weekday: "long"
+        weekday: "long",
     };
-    let date = new Intl.DateTimeFormat("en-UK", dateOptions).format(new Date());
+    /* used International date time format for internationalisation*/
+    let date = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
 
-   
     //test tp see if we get location,
-    console.log(cityName, countryName, date);
+    //console.log(cityName, countryName, date);
 
     /*update the UI
       textContent property used to access or modify the content of an HTML element. 
@@ -89,7 +88,9 @@ function loadLocationData(locationData) {
     dvCurrDate.textContent = date;
 }
 
-
+/*will get all the weather data from the API
+using getWeatherData() function and load the result in
+loadCurrentWeather() and loadDailyForecast() functions*/ 
 async function getWeatherData(lat, lon) {
     /**
      temperature_unit = fahrenheit OR celsius
@@ -125,19 +126,22 @@ async function getWeatherData(lat, lon) {
         }
 
         const result = await response.json();
-        //console.log(result);
+        console.log(result); //API weather data
 
-        //new function for current weather temperature and result will be the parameter
-        loadWeatherData(result); 
+        /*new function for current weather temperature and result will be the parameter
+          when we get the result from API, using our getWeatherData() function
+           we load the weather data result in our loadCurrentWeather() function*/
+        loadCurrentWeather(result);  
+        loadDailyForecast(result); //get weather, daily forecast data from api and load result in loadDailyForecast() function.
     } catch (error) {
         console.error(error.message);
     }
 }
 
 //current temperature function
-function loadWeatherData(weather) {
+function loadCurrentWeather(weather) {
     //check if its loaded
-    console.log(weather);
+    //console.log(weather);
     /* will get current temp div and use textContent property
      and use our weather parameter to get current temperature.
      will get the current temperature from API calls (latitude & longitude)
@@ -176,10 +180,112 @@ function loadWeatherData(weather) {
 
 }
 
-/*update weather icons:
 
-*/
-function getWeatherFileName(code) {
+/** we need to loop through our daily forecast data
+ * go through our api call which is our weather object
+ * and we've already used current and current_units, 
+ * so now will use daily for daily forecast.
+ */
+/*daily forecast data, use weather as parameter.
+  this function will load the weather result */
+function loadDailyForecast(weather) {
+    //load all the days from weather API 'daily' object.
+    let daily = weather.daily;
+    /*loop through 'daily' data. 
+       will use for loop
+       API daily object contains temperature_2m_max and temperature_2m_min, time, weather_code
+       we might use index coz we need to get the
+       first item in each of the temperature_2m_max and temperature_2m_min, time, weather_code
+
+       for 7 days it goes from 0 to 6 and then increment it
+
+       in loop: convert the date object after getting from
+        API daily obejct -  time field.
+        so convert the date format to display the only days 
+    */
+    let i = 0;
+        /*get time field and index of i
+          so this will start from 0 and goes to 6 
+          and convert the dates to Date(),
+          however for the purpose of internationalisaton, use international date time format -
+          Intel.DateTimeFormat() with options paramter instead*/
+
+    let date = new Date(daily.time[i]);
+    let dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
+    let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`);
+    /* Load the actual Image File Path
+    will replace the actual rain image icon name with the weather code 
+         weill use getWeatherCodeName() function coz thats where we have stored the weather codes.
+         API call - daily - weather_code*/
+    let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
+    /*Test:
+        //console.log(date); //outputs whole date with with days time
+        //console.log(new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date)); //outputs just the days as shorthand like Monday as Mon coz we used "short" format.   
+        //console.log(dayOfWeek); //outputs 7 days like Thu Fri... starting from current day*/
+
+    /* dynamically generate p.daily__day-title.
+      so will create a paragraph and insert it into element.*/
+    
+   /* Add content : p tag
+        tag is "p", className is "daily__day-title", 
+        content is dayOfWeek, parentElement is dvForecastDay, position is "afterbegin".
+        we used "afterbegin" (before its first child) to create paragraph inside the forecast.
+        we call addDailyElement() function in this loadDailyForecast() function.
+        Refer to MDN doc: insertAdjacentElement() for "afterbegin" and "beforend".
+        
+        //the empty string will load the file path to load image 
+   */
+    addDailyElement("p", "daily__day-title", dayOfWeek, "", dvForecastDay, "afterbegin");
+    /* img tag
+        same for this aswell but, the img tag doesnt need content, 
+        so will just add an empty string "" for that, 
+        and will add image file path beside that which contains our image file source path,
+        and instead of "afterbegin", will use "beforeend" (after the last child) 
+        which in this case would just be after the paragraph. 
+     */
+    addDailyElement("img", "daily__day-icon", "", weatherCodeName, dvForecastDay, "beforeend"); 
+    /* For our empty string will create a condition in addDailyElement() function so:
+        if content is an empty string then it wont add the textNode here. */
+}
+
+/* Create a helper function for other daily elements 
+   and name them tag, className, content and parentElement
+   Refer to MDN doc: createElement() Method
+   also added weatherCodeName to load image icon and alt text for image.
+   */
+function addDailyElement(tag, className, content, weatherCodeName, parentElement, position) {
+    // create a new div element
+    const newElement = document.createElement(tag);
+    //class
+    newElement.setAttribute("class", className);
+
+    /*addDailyElement() call function in loadDailyForecast() contains empty string for content
+     which is the dayOfWeek which we do not need for our img tag */
+    if (content !== "") {
+        // we want to create a text node and below this will append the child aswell
+        const newContent = document.createTextNode(content); // and give the newly created div element some content
+        //and append the child
+        newElement.appendChild(newContent); // add the text node to the newly created div
+    }
+    //load the img source file which will be the image file name that will be generated.
+    if (tag === "img") {
+        newElement.setAttribute("src", `/assets/images/icon-${weatherCodeName}.webp`);
+        //addweatherCodeName in the alt text for img
+        newElement.setAttribute("alt", weatherCodeName);
+        //set width & height of the img
+        newElement.setAttribute("width", "320");
+        newElement.setAttribute("height", "320");
+    }
+
+    // add the newly created element and its content into the DOM
+    parentElement.insertAdjacentElement(position, newElement);
+}
+
+
+
+//will use this function() for the image alt text
+/*update weather icons:*/
+function getWeatherCodeName(code) {
     /*check weather variable documentation for 
     Weather interpretion codes on open-meteo site
         sunny -    0 
@@ -225,22 +331,13 @@ function getWeatherFileName(code) {
         96 : "storm",
         99 : "storm",
     };
-
-    let fileName = `icon-${weatherCodes[code]}.webp`; //image file name
-
-    return fileName;
-    //return weatherCodes[code];
-
+    // this will just return the description here.
+    return weatherCodes[code];
 }
 
 getGeoData();
 
-console.log(getWeatherFileName(1)); //call getWeatherFileName(code) 
-
-/** we need to loop through our daily forecast data
- * and we need go to our api call and open weather object
- * and we've already used current and current_units now, will use daily 
- */
+//console.log(getWeatherFilePath(1)); //call getWeatherFileName(code) 
 
 
-
+// get a whole date and pull a day out of that
