@@ -135,15 +135,18 @@
             coz condition and daily forecast uses same bg color and border style 
             Also added id to dynamically load daily forecast using js-->
             <div id="dvForecastDay1" class="block daily__day">
-              <p class="daily__day-title">Tue</p>
-              <!--for img, alt will be added dynamically depending on what the image is-->
-              <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320"> 
+              <!-- we have dynamically generated the paragraph tag containing daily__day-title inside the forecast -->
+              <!-- <p class="daily__day-title"></p> -->
+
+              <!--for img, alt will be added dynamically depending on what the image is
+              and will also load alt text for img dynamically-->
+              <!-- <img class="daily__day-icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320">  -->
               <!-- will use flex container coz we got two different temp degrees in one
               one on left side and another on right side within same panel-->
-              <div class="daily__day-temps">
-                <p class="daily__day-high">20&deg;</p>
-                <p class="daily__day-low">14&deg;</p>
-              </div>
+              <!-- <div class="daily__day-temps"> -->
+                <!-- <p class="daily__day-high">20&deg;</p> -->
+                <!-- <p class="daily__day-low">14&deg;</p> -->
+              <!-- </div> -->
             </div>
             <div id="dvForecastDay2" class="block daily_day"></div>
             <div id="dvForecastDay3" class="block daily_day"></div>
