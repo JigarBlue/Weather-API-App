@@ -218,6 +218,17 @@ function loadDailyForecast(weather) {
          weill use getWeatherCodeName() function coz thats where we have stored the weather codes.
          API call - daily - weather_code*/
     let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
+
+    /*load the content which is the 3rd parameter for daily__day-temps,
+      weather API - daily - temperature_2m_max and index to get the temp degrees 
+      and add degree symbol as a string
+      we also use Math.round() for temp degrees to remove the decimal points*/
+    let dailyHigh = Math.round(daily.temperature_2m_max[i]) + "°";
+    /*dailyLow
+      weather API - daily - temperature_2m_min and index */
+    let dailyLow = Math.round(daily.temperature_2m_min[i]) + "°";
+
+
     /*Test:
         //console.log(date); //outputs whole date with with days time
         //console.log(new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date)); //outputs just the days as shorthand like Monday as Mon coz we used "short" format.   
@@ -258,11 +269,11 @@ function loadDailyForecast(weather) {
 
     /*will add paragraph inside the div daily__day-temps. 
       And append the paragaraph to dvDailyTemps. And the class will be daily__day-high
-      And the content and weatherCodeName will be an empty string */
-    addDailyElement("p", "daily__day-high", "", "", dvDailyTemps, "afterbegin");
+      And the content wiill be dailyHigh and weatherCodeName will be an empty string */
+    addDailyElement("p", "daily__day-high", dailyHigh, "", dvDailyTemps, "afterbegin");
 
-    //daily__day-low paragraph. so this paragraph will be after daily__day-high class.
-    addDailyElement("p", "daily__day-low", "", "", dvDailyTemps, "beforeend");
+    //daily__day-low paragraph. so this paragraph will be after daily__day-high class
+    addDailyElement("p", "daily__day-low", dailyLow, "", dvDailyTemps, "beforeend");
    
 }
 
