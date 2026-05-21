@@ -203,78 +203,83 @@ function loadDailyForecast(weather) {
         API daily obejct -  time field.
         so convert the date format to display the only days 
     */
-    let i = 0;
-        /*get time field and index of i
-          so this will start from 0 and goes to 6 
-          and convert the dates to Date(),
-          however for the purpose of internationalisaton, use international date time format -
-          Intel.DateTimeFormat() with options paramter instead*/
-
-    let date = new Date(daily.time[i]);
-    let dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
-    let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`);
-    /* Load the actual Image File Path
-    will replace the actual rain image icon name with the weather code 
-         weill use getWeatherCodeName() function coz thats where we have stored the weather codes.
-         API call - daily - weather_code*/
-    let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
-
-    /*load the content which is the 3rd parameter for daily__day-temps,
-      weather API - daily - temperature_2m_max and index to get the temp degrees 
-      and add degree symbol as a string
-      we also use Math.round() for temp degrees to remove the decimal points*/
-    let dailyHigh = Math.round(daily.temperature_2m_max[i]) + "°";
-    /*dailyLow
-      weather API - daily - temperature_2m_min and index */
-    let dailyLow = Math.round(daily.temperature_2m_min[i]) + "°";
-
-
-    /*Test:
-        //console.log(date); //outputs whole date with with days time
-        //console.log(new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date)); //outputs just the days as shorthand like Monday as Mon coz we used "short" format.   
-        //console.log(dayOfWeek); //outputs 7 days like Thu Fri... starting from current day*/
-
-    /* dynamically generate p.daily__day-title.
-      so will create a paragraph and insert it into element.*/
-    
-   /* Add content
-        tag is "p", className is "daily__day-title", 
-        content is dayOfWeek, parentElement is dvForecastDay, position is "afterbegin".
-        we used "afterbegin" (before its first child) to create paragraph inside the forecast.
-        we call addDailyElement() function in this loadDailyForecast() function.
-        Refer to MDN doc: insertAdjacentElement() for "afterbegin" and "beforend".
+    //for loop
+    for (let i = 0; i < 7; i++) {
         
-        //the empty string will load the file path to load image 
-   */
-    addDailyElement("p", "daily__day-title", dayOfWeek, "", dvForecastDay, "afterbegin");
-    /* img tag
-        same for this aswell but, the img tag doesnt need content, 
-        so will just add an empty string "" for that, 
-        and will add image file path beside that which contains our image file source path,
-        and instead of "afterbegin", will use "beforeend" (after the last child) 
-        which in this case would just be after the paragraph. 
-     */
-    addDailyElement("img", "daily__day-icon", "", weatherCodeName, dvForecastDay, "beforeend"); 
-    /* For our empty string will create a condition in addDailyElement() function so:
-        if content is an empty string then it wont add the textNode here. */
+            /*get time field and index of i
+            so this will start from 0 and goes to 6 
+            and convert the dates to Date(),
+            however for the purpose of internationalisaton, use international date time format -
+            Intel.DateTimeFormat() with options paramter instead*/
 
-    /* will create a div for daily__day-temps
-     tag is div, className is daily__day-temps, content and weatherCodeName will be empty string, 
-     parentElement will be dvForecastDay and position will be beforeend */
-    addDailyElement("div", "daily__day-temps", "", "", dvForecastDay, "beforeend");
+        let date = new Date(daily.time[i]);
+        let dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
+        let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`); //i + 1 is only for div's.
+        /* Load the actual Image File Path
+        will replace the actual rain image icon name with the weather code 
+            weill use getWeatherCodeName() function coz thats where we have stored the weather codes.
+            API call - daily - weather_code*/
+        let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
 
-    /*create the p tag for daily__day-temps div as variable. 
-    This will run after the div daily__day-temps is created. */
-    let dvDailyTemps = document.querySelector(".daily__day-temps");
+        /*load the content which is the 3rd parameter for daily__day-temps,
+        weather API - daily - temperature_2m_max and index to get the temp degrees 
+        and add degree symbol as a string
+        we also use Math.round() for temp degrees to remove the decimal points*/
+        let dailyHigh = Math.round(daily.temperature_2m_max[i]) + "°"; // we dont use i + 1 here coz when we pulling data, we start it from index 0.
+        /*dailyLow
+        weather API - daily - temperature_2m_min and index */
+        let dailyLow = Math.round(daily.temperature_2m_min[i]) + "°";
 
-    /*will add paragraph inside the div daily__day-temps. 
-      And append the paragaraph to dvDailyTemps. And the class will be daily__day-high
-      And the content wiill be dailyHigh and weatherCodeName will be an empty string */
-    addDailyElement("p", "daily__day-high", dailyHigh, "", dvDailyTemps, "afterbegin");
 
-    //daily__day-low paragraph. so this paragraph will be after daily__day-high class
-    addDailyElement("p", "daily__day-low", dailyLow, "", dvDailyTemps, "beforeend");
-   
+        /*Test:
+            //console.log(date); //outputs whole date with with days time
+            //console.log(new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date)); //outputs just the days as shorthand like Monday as Mon coz we used "short" format.   
+            //console.log(dayOfWeek); //outputs 7 days like Thu Fri... starting from current day*/
+
+        /* dynamically generate p.daily__day-title.
+        so will create a paragraph and insert it into element.*/
+        
+        /* Add content
+            tag is "p", className is "daily__day-title", 
+            content is dayOfWeek, parentElement is dvForecastDay, position is "afterbegin".
+            we used "afterbegin" (before its first child) to create paragraph inside the forecast.
+            we call addDailyElement() function in this loadDailyForecast() function.
+            Refer to MDN doc: insertAdjacentElement() for "afterbegin" and "beforend".
+            
+            //the empty string will load the file path to load image 
+        */
+        addDailyElement("p", "daily__day-title", dayOfWeek, "", dvForecastDay, "afterbegin");
+        /* img tag
+            same for this aswell but, the img tag doesnt need content, 
+            so will just add an empty string "" for that, 
+            and will add image file path beside that which contains our image file source path,
+            and instead of "afterbegin", will use "beforeend" (after the last child) 
+            which in this case would just be after the paragraph. 
+        */
+        addDailyElement("img", "daily__day-icon", "", weatherCodeName, dvForecastDay, "beforeend"); 
+        /* For our empty string will create a condition in addDailyElement() function so:
+            if content is an empty string then it wont add the textNode here. */
+
+        /* will create a div for daily__day-temps
+        tag is div, className is daily__day-temps, content and weatherCodeName will be empty string, 
+        parentElement will be dvForecastDay and position will be beforeend */
+        addDailyElement("div", "daily__day-temps", "", "", dvForecastDay, "beforeend");
+
+        /*create the p tag for daily__day-temps div as variable. 
+        This will run after the div daily__day-temps is created. 
+        we have also added #dvForecastDay${i + 1} which adds the temperature degrees for all 7 days,
+        coz without that it just finds the first daily day temps and
+        we run into issue where all the temp degrees gets displayed within the first block which is the current day*/
+        let dvDailyTemps = document.querySelector(`#dvForecastDay${i + 1} .daily__day-temps`);
+
+        /*will add paragraph inside the div daily__day-temps. 
+        And append the paragaraph to dvDailyTemps. And the class will be daily__day-high
+        And the content wiill be dailyHigh and weatherCodeName will be an empty string */
+        addDailyElement("p", "daily__day-high", dailyHigh, "", dvDailyTemps, "afterbegin");
+
+        //daily__day-low paragraph. so this paragraph will be after daily__day-high class
+        addDailyElement("p", "daily__day-low", dailyLow, "", dvDailyTemps, "beforeend");
+    }
 }
 
 /* Create a helper function for other daily elements 
