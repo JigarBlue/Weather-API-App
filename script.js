@@ -226,7 +226,7 @@ function loadDailyForecast(weather) {
     /* dynamically generate p.daily__day-title.
       so will create a paragraph and insert it into element.*/
     
-   /* Add content : p tag
+   /* Add content
         tag is "p", className is "daily__day-title", 
         content is dayOfWeek, parentElement is dvForecastDay, position is "afterbegin".
         we used "afterbegin" (before its first child) to create paragraph inside the forecast.
@@ -246,6 +246,24 @@ function loadDailyForecast(weather) {
     addDailyElement("img", "daily__day-icon", "", weatherCodeName, dvForecastDay, "beforeend"); 
     /* For our empty string will create a condition in addDailyElement() function so:
         if content is an empty string then it wont add the textNode here. */
+
+    /* will create a div for daily__day-temps
+     tag is div, className is daily__day-temps, content and weatherCodeName will be empty string, 
+     parentElement will be dvForecastDay and position will be beforeend */
+    addDailyElement("div", "daily__day-temps", "", "", dvForecastDay, "beforeend");
+
+    /*create the p tag for daily__day-temps div as variable. 
+    This will run after the div daily__day-temps is created. */
+    let dvDailyTemps = document.querySelector(".daily__day-temps");
+
+    /*will add paragraph inside the div daily__day-temps. 
+      And append the paragaraph to dvDailyTemps. And the class will be daily__day-high
+      And the content and weatherCodeName will be an empty string */
+    addDailyElement("p", "daily__day-high", "", "", dvDailyTemps, "afterbegin");
+
+    //daily__day-low paragraph. so this paragraph will be after daily__day-high class.
+    addDailyElement("p", "daily__day-low", "", "", dvDailyTemps, "beforeend");
+   
 }
 
 /* Create a helper function for other daily elements 
