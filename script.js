@@ -49,6 +49,7 @@ async function getGeoData() {
 
         loadLocationData(result);
         getWeatherData(lat, lon); //if response is sucessfull then call getWeatherData()
+        loadHourlyForecast();
 
     } catch (error) {
         console.error(error.message);
@@ -75,7 +76,7 @@ function loadLocationData(locationData) {
         weekday: "long",
     };
     /* used International date time format for internationalisation*/
-    let date = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
+    let currDate = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
 
     //test tp see if we get location,
     //console.log(cityName, countryName, date);
@@ -85,7 +86,7 @@ function loadLocationData(locationData) {
       will use template literals coz we want to use comma 
       for writing cityname and country name like London, England*/
     dvCityCountry.textContent = `${cityName}, ${countryName}`;
-    dvCurrDate.textContent = date;
+    dvCurrDate.textContent = currDate; //Intl.DateTimeFormat
 }
 
 /*will get all the weather data from the API
@@ -313,6 +314,43 @@ function addDailyElement(tag, className, content, weatherCodeName, parentElement
 
     // add the newly created element and its content into the DOM
     parentElement.insertAdjacentElement(position, newElement);
+}
+
+/* Hourly forecast
+    Have the ability to choose the day which will give us the hourly forecast.
+    Will start pulling all the data we need for the hourly forecast.
+
+    will add loops:
+    One loop will be outer loop: which will loop through days
+    And in that loop, will have another loop to loop through the hourly data.
+ */
+function loadHourlyForecast() {
+
+    /* the API weather data has a date format: 2026-05-27T00:00
+    // so will use the same date format: 2026-05-27T00:00 to customise our date.*/
+
+    //use options argument to customise date & time formats
+    let dateOptions = {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        
+    };
+    /* used International date time format for internationalisation*/
+    //let currDate = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
+    let currDate = new Date();
+    /* padding (filling up a string with another character sequence or string) 
+        a string with another string for date format.
+        so, pad a single digit value with additional 0 in beginning 
+        and the date format will remain same.
+    
+        Also added toString() to return a string representing a number value,
+        coz padStart doesnt returns a string,
+        so need to convert it to a string    */
+    let year = currDate.getFullYear().toString();
+    let month = currDate.getMonth().toString().padStart(2, "0");
+    let date = currDate.getDate().toString().padStart(2, "0");
+    console.log(`${year} - ${month} - ${date}`);
 }
 
 
