@@ -336,21 +336,42 @@ function loadHourlyForecast() {
         day: "numeric",
         
     };
-    /* used International date time format for internationalisation*/
-    //let currDate = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
-    let currDate = new Date();
-    /* padding (filling up a string with another character sequence or string) 
-        a string with another string for date format.
+
+    /*Add days to date
+        use for loop */
+    for (let i = 0; i < 7; i++) {
+        /*create new date everytime
+            so by declaring the current date (currDate) as today's date (new Date()), 
+            every loop it will make sures the current date doesnt change*/
+        let currDate = new Date();
+        /*loop through the dates
+         the 'setDate()' method of Date instances 'changes the day of the month'
+          for this date according to local time. 
+          in setDate() we need to add current date and date of the current date plus i to get the correct days
+          this will change the value of current date*/
+        currDate.setDate(currDate.getDate() + i);
+        //Test
+        //console.log(currDate); //test whole date with time
+        //console.log(new Intl.DateTimeFormat("en-US", dateOptions).format(currDate)); //currentDate //test days working 
+
+        /* padstart: 
+        padding (filling up a string with another character sequence or string) 
+        a string with another string to date format.
         so, pad a single digit value with additional 0 in beginning 
         and the date format will remain same.
     
-        Also added toString() to return a string representing a number value,
+        Also added toString():
+        to return a string representing a number value,
         coz padStart doesnt returns a string,
         so need to convert it to a string    */
-    let year = currDate.getFullYear().toString();
-    let month = currDate.getMonth().toString().padStart(2, "0");
-    let date = currDate.getDate().toString().padStart(2, "0");
-    console.log(`${year} - ${month} - ${date}`);
+        let year = currDate.getFullYear().toString();
+        let month = currDate.getMonth().toString().padStart(2, "0");
+        let date = currDate.getDate().toString().padStart(2, "0");
+        console.log(`${year} - ${month} - ${date}`);
+    }
+
+
+
 }
 
 
