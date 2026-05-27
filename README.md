@@ -70,6 +70,32 @@ Coming soon...
 
 ---
 
+## ⚠️ Important - CORS Issue (Development Only)
+
+If weather data does not load, your browser may be blocking the request due to CORS policy.
+
+Open Developer Console:
+
+- Right click on the page → Inspect → Console
+
+If you see a CORS error, this is a browser security restriction.
+
+### 🧪 Temporary Fix (Chrome Only)
+
+Install the Allow CORS extension:
+
+- https://chromewebstore.google.com/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en
+
+Enable the extension and refresh the page.
+
+> Note: This step apllies only to Chrome. Other browsers may require different CORS testing tools or settings.
+
+### 🚀 Recommended Fix (Best Practice)
+
+For production or cross-browser support, enable CORS on the API server instead of relying on browser extensions.
+
+---
+
 ## 📷 Test Screenshots UI Preview
 
 - UI built with HTML & CSS.
