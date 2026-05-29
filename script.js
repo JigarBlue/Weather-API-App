@@ -338,7 +338,7 @@ function loadHourlyForecast() {
     };
 
     /*Add days to date
-        use for loop */
+        use for loop for days*/
     for (let i = 0; i < 7; i++) {
         /*create new date everytime
             so by declaring the current date (currDate) as today's date (new Date()), 
@@ -352,7 +352,7 @@ function loadHourlyForecast() {
         currDate.setDate(currDate.getDate() + i);
         //Test
         //console.log(currDate); //test whole date with time
-        //console.log(new Intl.DateTimeFormat("en-US", dateOptions).format(currDate)); //currentDate //test days working 
+        console.log(new Intl.DateTimeFormat("en-US", dateOptions).format(currDate)); //currentDate //test days working 
 
         /* padstart: 
         padding (filling up a string with another character sequence or string) 
@@ -365,9 +365,25 @@ function loadHourlyForecast() {
         coz padStart doesnt returns a string,
         so need to convert it to a string    */
         let year = currDate.getFullYear().toString();
-        let month = currDate.getMonth().toString().padStart(2, "0");
+        let month = (currDate.getMonth() +1).toString().padStart(2, "0");
         let date = currDate.getDate().toString().padStart(2, "0");
         console.log(`${year} - ${month} - ${date}`);
+
+        /*now will create them as strings so that we can match the format 
+        that we have in our weather API data for hourly forecast date
+        which is this: 2026-05-27T00:00 
+        right now we have this: 2026 - 04 - 27 which we created using 'for loop for days'
+        and we have to turn it into this: 2026-05-27T00:00 
+        so will create another for loop inside our 'day loop'
+        and will be tracking the hours now*/
+        for (let h = 0; h <= 23; h++) {
+            //loop through the hours
+            //return hour number for each day
+            console.log(h);
+        }
+
+
+
     }
 
 
