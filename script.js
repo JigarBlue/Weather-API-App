@@ -38,7 +38,7 @@ async function getGeoData() {
         }
 
         const result = await response.json();
-        //console.log(result);
+        console.log(result);
         /* will get lat and lon from here.
         latitude and logitude is in first item of array index 0 
         so, result which is whole array and 
@@ -49,7 +49,6 @@ async function getGeoData() {
 
         loadLocationData(result);
         getWeatherData(lat, lon); //if response is sucessfull then call getWeatherData()
-        loadHourlyForecast();
 
     } catch (error) {
         console.error(error.message);
@@ -134,6 +133,7 @@ async function getWeatherData(lat, lon) {
            we load the weather data result in our loadCurrentWeather() function*/
         loadCurrentWeather(result);  
         loadDailyForecast(result); //get weather, daily forecast data from api and load result in loadDailyForecast() function.
+        loadHourlyForecast(result);
     } catch (error) {
         console.error(error.message);
     }
@@ -323,11 +323,29 @@ function addDailyElement(tag, className, content, weatherCodeName, parentElement
     will add loops:
     One loop will be outer loop: which will loop through days
     And in that loop, will have another loop to loop through the hourly data.
+
+    weather is provided as parameter, coz
+    will pull weather in loadHourlyForecast to pull our data.
  */
-function loadHourlyForecast() {
+function loadHourlyForecast(weather) {
 
     /* the API weather data has a date format: 2026-05-27T00:00
     // so will use the same date format: 2026-05-27T00:00 to customise our date.*/
+
+    //Pseudo code on how to load the data to get the format for time.
+    // for each of the 7 days, need to retrieve the 23 hours indexes
+    //Day 1 , Hours: 0-23  //0+23 is 23  -- i=0
+    //Day 2, Hours: 24-47 //24+23 is 47 -- i=1
+    //Day 3, Hours: 48-71 //48+23 is 71 -- i=2
+    //Day 4, Hours: 72-95 //72+23 is 95
+    //Day 5, Hours: 96-119 //96+23 is 119
+    //Day 6, Hours: 120-143 //120+23 is 143
+    //Day 7, Hours: 144-167 //144+23 is 167
+    //and in our weather api call, in our hourly object field we got total 168 arrays for time, temperature and weather code.
+    //we can use these indexes to pull from each one. so if we have starting hour index then we can add 23 to that for each day
+    // and this will be simpler than trying to convert data from an object.
+    // And this is what we really need in order to retrieve the correct hourly data.
+
 
     //use options argument to customise date & time formats
     let dateOptions = {
@@ -337,57 +355,115 @@ function loadHourlyForecast() {
         
     };
 
+    //console.log(weather);
+
     /*Add days to date
         use for loop for days*/
     for (let i = 0; i < 7; i++) {
-        /*create new date everytime
-            so by declaring the current date (currDate) as today's date (new Date()), 
-            every loop it will make sures the current date doesnt change*/
-        let currDate = new Date();
-        /*loop through the dates
-         the 'setDate()' method of Date instances 'changes the day of the month'
-          for this date according to local time. 
-          in setDate() we need to add current date and date of the current date plus i to get the correct days
-          this will change the value of current date*/
-        currDate.setDate(currDate.getDate() + i);
-        //Test
-        //console.log(currDate); //test whole date with time
-        console.log(new Intl.DateTimeFormat("en-US", dateOptions).format(currDate)); //currentDate //test days working 
 
-        /* padstart: 
-        padding (filling up a string with another character sequence or string) 
-        a string with another string to date format.
-        so, pad a single digit value with additional 0 in beginning 
-        and the date format will remain same.
-    
-        Also added toString():
-        to return a string representing a number value,
-        coz padStart doesnt returns a string,
-        so need to convert it to a string    */
-        let year = currDate.getFullYear().toString();
-        let month = (currDate.getMonth() +1).toString().padStart(2, "0");
-        let date = currDate.getDate().toString().padStart(2, "0");
-        console.log(`${year} - ${month} - ${date}`);
+        /*Test
+            console for each of the 7 days and + 1 will count from Day 1 and output till Day 7 instead of Day 6.*/
+        console.log(`Day ${i+1}`);
 
-        /*now will create them as strings so that we can match the format 
+        //First Hour -- 24i
+        let firstHour = 24 * i;
+
+        //Last Hour -- 24 * (i + 1) - 1
+        let lastHour = 24 * (i+1) - 1;
+
+        /*we get this from our weather api 'getWeatherData()': 
+            so, weather - hourly object - weather_code (weather_code will return array) */
+        let weatherCodes = weather.hourly.weather_code;
+
+        //weather api : weather - hourly object - temperature_2m (retturns array)
+        let temps = weather.hourly.temperature_2m;
+
+        //hours variable to pull time from hourly weather data API
+        let hours = weather.hourly.time; 
+
+        /* now we need to figure out what the hours are ging to be ?
+            on mockup design its 3pm, 4pm etc.
+            will start from midnight 12:00am.
+            and will need another for loop inside our for loop to display the hour.
+            right now were getting the data for the whole day which is 24hour of data.
+            and now we need to loop through the hours of the day for each day.*/
+        for (let h = firstHour; h < lastHour + 1; h++) {
+           /*Test
+                for each of the 7 days, it will console log 24 hours. (numbers)
+                this should show: Day 1: start from 0 and and goes till 23, Day 2: 24 - 47. and so on.
+                so our hourly loop is working now*/
+           //console.log(h);
+
+            let weatherName = getWeatherCodeName(weatherCodes[h]);
+            let temp = temps[h];
+            /** hours[h] will pull the time from hourly weather data API
+                we'll  convert this 2026-05-30T00:00 date time string to a date object.
+                then format the hour.
+                And to do that will use new Date()
+                to fomrat it to large string of numbers, 
+                it wil display the full date and time like this: Sat May 30 2026 00:00:00 GMT+0100 (British Summer Time)
+
+                Refer to MDN - Get Date, Time and Hour
+                we want to go from date object to string of the hours.
+                Next fomrat datetime hours am and pm 
+                so, we'll use toLocaleString() method which returns a Date object as a string using Locale settings.
+             */
+            let hour = new Date(hours[h]).toLocaleString('en-US', { hour: 'numeric', hour12: true });
+
+            /*'hour' will get date and time, So for each hour, 
+                it will diplay date and time(hour): 2026-05-30T00:00
+                weatherCode will show the codes like for sunny, rainy, so: 2,1,3,0,51
+                and temp will get the tempearatures : 21.2, 18.8, 17
+                all together like this: 2026-05-30T00:00 2 20.3
+             */
+            console.log(hour, weatherName, temp); 
+
+           /*this should output the same weathercode_arrays for all the 7 days,
+                as we normally have in our weather data API.
+                and tempearature */
+            //console.log(weatherCodes[h], temps[h]);
+
+           //we also get the temperature
+        }
+
+        //we need to get the hour
+        // weather code 
+        // temperature
+
+        /*Test
+        get the indexes (first hour & last hour)
+        what will get in console is:
+        were looping through each day.
+        For each day will get, the first hour and the last hour.
+        And it should match up with these numbers:
+         0-23 
+         24-47 
+         48-71 
+        so on...... till 167.
+        The day will start at 0.
+        */
+        //console.log(firstHour, lastHour);
+
+    }
+
+}
+
+//helper function: to get hours and return the number of hours.
+function getHours() {
+    /*now will create them as strings so that we can match the format 
         that we have in our weather API data for hourly forecast date
         which is this: 2026-05-27T00:00 
         right now we have this: 2026 - 04 - 27 which we created using 'for loop for days'
         and we have to turn it into this: 2026-05-27T00:00 
         so will create another for loop inside our 'day loop'
-        and will be tracking the hours now*/
-        for (let h = 0; h <= 23; h++) {
-            //loop through the hours
-            //return hour number for each day
-            console.log(h);
-        }
-
-
-
+        and will be tracking the hours now which is this: T00:00*/
+    for (let h = 0; h <= 23; h++) {
+        //loop through the hours
+             
+        console.log(h);//return hour number for each day
+        //we got the date format 2026-05-27T00:00 and now will work on time format T00:00
+        //So T will be time, then hours and minutes
     }
-
-
-
 }
 
 
