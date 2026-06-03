@@ -1,6 +1,7 @@
 /*load all the elements as const */
 //Units: Celcius & Fahrenhiets 
 const ddlUnits = document.querySelector("#ddlUnits"); /*dropdown units*/
+const ddlDay = document.querySelector("#ddlDay"); /*dropdown days for hourly forecast*/
 
 // address & date 
 const dvCityCountry = document.querySelector("#dvCityCountry"); /*city & country name */
@@ -134,6 +135,7 @@ async function getWeatherData(lat, lon) {
         loadCurrentWeather(result);  
         loadDailyForecast(result); //get weather, daily forecast data from api and load result in loadDailyForecast() function.
         loadHourlyForecast(result);
+        populateDayOfWeek(); //dropdown days for hourly forecast
     } catch (error) {
         console.error(error.message);
     }
@@ -312,7 +314,6 @@ function addDailyElement(tag, className, content, weatherCodeName, parentElement
         newElement.setAttribute("width", "320");
         newElement.setAttribute("height", "320");
     }
-
     // add the newly created element and its content into the DOM
     parentElement.insertAdjacentElement(position, newElement);
 }
@@ -565,6 +566,47 @@ function getWeatherCodeName(code) {
     // this will just return the description here.
     return weatherCodes[code];
 }
+
+function populateDayOfWeek() {
+    /*loop through 7 Days 
+        day = 0, dayOfWeek = current date but get weekday name (Monday, Tuesday...)
+        day = 1, use setDate() to add 1, so setDate(today + 1) and get weekday name */
+    
+    /*for loop:
+        i equals 0, until i equals 7, i increment. 
+        And it will go 7 times starting from 0.
+        so 0 to 6 : Monday to Sunday. */
+    for (i = 0; i < 7; i++) {
+
+        /*since we only need 1 dayOption argument for daily forecast days,
+            so will just add {weekday: "long"} instead of whole dayOption variable in currDay.
+            dateOptions arguments is used to customise date formats, 
+            so {weekday: "long"} will give us days like Monday, Tuesady...
+            and will use International date time format for internationalisation*/
+        let currDay = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(new Date());
+        
+        /*here will add option tag (drop-down) to the select tag in HTML
+            will add elements statically
+            create a new div element with tag option */
+        const newOption = document.createElement("option");
+        // we want to create a text node (for the days like Monday, Tuesday..) and below this will append the child aswell
+        const dayOfWeek = document.createTextNode(currDay); // and give the newly created div element some content
+
+        //create 3 new option tags
+        //set attribute - class name
+        newOption.setAttribute("class", "hourly__select-day");
+        //set attribute - value starts at 0 string
+        newOption.setAttribute("value", i);
+        //and append the child
+        newOption.appendChild(dayOfWeek); // add the text node to the newly created div
+
+        //add the 3 new option tags to select tag
+        // add the newly created element and its content into the DOM (ddl is parent element)
+        ddlDay.insertAdjacentElement("beforeend", newOption);
+
+    }
+}
+//now we need to get the current day and the day of the week
 
 getGeoData();
 
