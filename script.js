@@ -571,19 +571,26 @@ function populateDayOfWeek() {
     /*loop through 7 Days 
         day = 0, dayOfWeek = current date but get weekday name (Monday, Tuesday...)
         day = 1, use setDate() to add 1, so setDate(today + 1) and get weekday name */
+
+        let currDate = new Date(); //this will declare the current time.
+
+
+        let currDay;
     
     /*for loop:
         i equals 0, until i equals 7, i increment. 
         And it will go 7 times starting from 0.
         so 0 to 6 : Monday to Sunday. */
     for (i = 0; i < 7; i++) {
-
-        /*since we only need 1 dayOption argument for daily forecast days,
+        /* Format to get the weekday:
+            since we only need 1 dayOption argument for daily forecast days,
             so will just add {weekday: "long"} instead of whole dayOption variable in currDay.
             dateOptions arguments is used to customise date formats, 
             so {weekday: "long"} will give us days like Monday, Tuesady...
             and will use International date time format for internationalisation*/
-        let currDay = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(new Date());
+        currDay = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(currDate);
+
+
         
         /*here will add option tag (drop-down) to the select tag in HTML
             will add elements statically
@@ -604,10 +611,14 @@ function populateDayOfWeek() {
         // add the newly created element and its content into the DOM (ddl is parent element)
         ddlDay.insertAdjacentElement("beforeend", newOption);
 
+        /*increment the date
+            setDate() is the method of Date instances, which sets the day of the month according to local time 
+            getDate() gets the number of the date
+            Now the dropdown for hourly forecast will show 7 days starting from current day*/
+        currDate.setDate(currDate.getDate() + 1);
     }
+    console.log(ddlDay); //load contents of ddlDay (select and option tags for dropdown days (hourly forecast))
 }
-//now we need to get the current day and the day of the week
-
 getGeoData();
 
 //console.log(getWeatherFilePath(1)); //call getWeatherFileName(code) 
