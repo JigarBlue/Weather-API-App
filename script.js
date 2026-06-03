@@ -215,7 +215,8 @@ function loadDailyForecast(weather) {
 
         let date = new Date(daily.time[i]);
         let dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
-        let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`); //i + 1 is only for div's.
+        //individual days
+        let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`); //i + 1 is only for div's. 
         /* Load the actual Image File Path
         will replace the actual rain image icon name with the weather code 
             weill use getWeatherCodeName() function coz thats where we have stored the weather codes.
@@ -316,27 +317,65 @@ function addDailyElement(tag, className, content, weatherCodeName, parentElement
     parentElement.insertAdjacentElement(position, newElement);
 }
 
+//Hourly forecast Elements
+/* Create a helper function for other hourly elements 
+   and name them tag, className, content and parentElement
+   Refer to MDN doc: createElement() Method
+   also added weatherCodeName to load image icon and alt text for image.
+   */
+function addHourlyElement(tag, className, content, weatherCodeName, parentElement, position) {
+    // create a new div element
+    const newElement = document.createElement(tag);
+    //class
+    newElement.setAttribute("class", className);
+
+    /*addDailyElement() call function in loadDailyForecast() contains empty string for content
+     which is the dayOfWeek which we do not need for our img tag */
+    if (content !== "") {
+        // we want to create a text node and below this will append the child aswell
+        const newContent = document.createTextNode(content); // and give the newly created div element some content
+        //and append the child
+        newElement.appendChild(newContent); // add the text node to the newly created div
+    }
+    //load the img source file which will be the image file name that will be generated.
+    if (tag === "img") {
+        newElement.setAttribute("src", `/assets/images/icon-${weatherCodeName}.webp`);
+        //addweatherCodeName in the alt text for img
+        newElement.setAttribute("alt", weatherCodeName);
+        //set width & height of the img
+        newElement.setAttribute("width", "320");
+        newElement.setAttribute("height", "320");
+    }
+
+    // add the newly created element and its content into the DOM
+    parentElement.insertAdjacentElement(position, newElement);
+}
+
 /* Hourly forecast
     Have the ability to choose the day which will give us the hourly forecast.
     Will start pulling all the data we need for the hourly forecast.
 
-    will add loops:
-    One loop will be outer loop: which will loop through days
-    And in that loop, will have another loop to loop through the hourly data.
+    will add loop:
+    which will loop through the hourly data.
 
     weather is provided as parameter, coz
     will pull weather in loadHourlyForecast to pull our data.
+
+    Also added a dayIndex paramter for hourly-forecast drop down list
+    which will allow user to select the days they want to load the forecast for.
+    so will set the dayIndex to 0 to default value.
+    So, By default it will load the first day which is the current day.
  */
-function loadHourlyForecast(weather) {
+function loadHourlyForecast(weather, dayIndex = 0) {
 
     /* the API weather data has a date format: 2026-05-27T00:00
     // so will use the same date format: 2026-05-27T00:00 to customise our date.*/
 
     //Pseudo code on how to load the data to get the format for time.
     // for each of the 7 days, need to retrieve the 23 hours indexes
-    //Day 1 , Hours: 0-23  //0+23 is 23  -- i=0
-    //Day 2, Hours: 24-47 //24+23 is 47 -- i=1
-    //Day 3, Hours: 48-71 //48+23 is 71 -- i=2
+    //Day 1 , Hours: 0-23  //0+23 is 23  -- dayIndex=0
+    //Day 2, Hours: 24-47 //24+23 is 47 -- dayIndex=1
+    //Day 3, Hours: 48-71 //48+23 is 71 -- dayIndex=2
     //Day 4, Hours: 72-95 //72+23 is 95
     //Day 5, Hours: 96-119 //96+23 is 119
     //Day 6, Hours: 120-143 //120+23 is 143
@@ -346,30 +385,21 @@ function loadHourlyForecast(weather) {
     // and this will be simpler than trying to convert data from an object.
     // And this is what we really need in order to retrieve the correct hourly data.
 
-
-    //use options argument to customise date & time formats
-    let dateOptions = {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        
-    };
-
     //console.log(weather);
 
-    /*Add days to date
-        use for loop for days*/
-    for (let i = 0; i < 7; i++) {
+    /*Add days to date*/
+    /*By default it will load the first day which is the current day*/
+    
 
         /*Test
             console for each of the 7 days and + 1 will count from Day 1 and output till Day 7 instead of Day 6.*/
-        console.log(`Day ${i+1}`);
+        console.log(`Day ${dayIndex + 1}`);
 
-        //First Hour -- 24i
-        let firstHour = 24 * i;
+        //First Hour -- 24 * 0
+        let firstHour = 24 * dayIndex;
 
-        //Last Hour -- 24 * (i + 1) - 1
-        let lastHour = 24 * (i+1) - 1;
+        //Last Hour -- 24 * (0 + 1) - 1
+        let lastHour = 24 * (dayIndex + 1) - 1;
 
         /*we get this from our weather api 'getWeatherData()': 
             so, weather - hourly object - weather_code (weather_code will return array) */
@@ -387,15 +417,15 @@ function loadHourlyForecast(weather) {
             and will need another for loop inside our for loop to display the hour.
             right now were getting the data for the whole day which is 24hour of data.
             and now we need to loop through the hours of the day for each day.*/
-        for (let h = firstHour; h < lastHour + 1; h++) {
+        for (let h = firstHour; h < lastHour; h++) {
            /*Test
                 for each of the 7 days, it will console log 24 hours. (numbers)
                 this should show: Day 1: start from 0 and and goes till 23, Day 2: 24 - 47. and so on.
                 so our hourly loop is working now*/
            //console.log(h);
 
-            let weatherName = getWeatherCodeName(weatherCodes[h]);
-            let temp = temps[h];
+            let weatherCodeName = getWeatherCodeName(weatherCodes[h]);
+            let temp = Math.round(temps[h]) + "°";
             /** hours[h] will pull the time from hourly weather data API
                 we'll  convert this 2026-05-30T00:00 date time string to a date object.
                 then format the hour.
@@ -416,9 +446,25 @@ function loadHourlyForecast(weather) {
                 and temp will get the tempearatures : 21.2, 18.8, 17
                 all together like this: 2026-05-30T00:00 2 20.3
              */
-            console.log(hour, weatherName, temp); 
+            //console.log(hour, weatherCodeName, temp); 
 
-           /*this should output the same weathercode_arrays for all the 7 days,
+            //individual hours
+            let dvForecastHour = document.querySelector(`#dvForecastHour${h + 1}`); //h + 1 is only for div's.
+            /*Test
+                console.log(dvForecastHour); //generates div elements for hourly forecast
+                like this: <div id="dvForecastHour2" class="hourly__hour"></div>*/
+            
+            /* generate the markup
+                dynamically generate p.daily__day-title.
+                so will create a paragraph and insert it into element.
+                add daily element to forecast hour*/
+            addDailyElement("img", "hourly__hour-icon", "", weatherCodeName, dvForecastHour, "afterbegin"); 
+            addDailyElement("p", "hourly__hour-time", hour, "", dvForecastHour, "beforeend");
+            addDailyElement("p", "hourly__hour-temp", temp, "", dvForecastHour, "beforeend");
+
+
+            /*console.log(weatherCodes[h], temps[h]);
+                this should output the same weathercode_arrays for all the 7 days,
                 as we normally have in our weather data API.
                 and tempearature */
             //console.log(weatherCodes[h], temps[h]);
@@ -444,7 +490,7 @@ function loadHourlyForecast(weather) {
         */
         //console.log(firstHour, lastHour);
 
-    }
+    
 
 }
 
