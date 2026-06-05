@@ -17,8 +17,9 @@ const pWind = document.querySelector("#pWind"); /*Wind */
 const pPrecipitation = document.querySelector("#pPrecipitation"); /*Precipitation */
 
 
-//variables for locations (use let coz will be changing city & country names)
-let cityName, countryName;
+//variables for locations (use let coz will be changing city, country names & weather data)
+// we have declared weatherData globally, so we won't have to pass as weatherData as parameter in functions.
+let cityName, countryName, weatherData;
 
 
 async function getGeoData() {
@@ -89,7 +90,7 @@ function loadLocationData(locationData) {
     dvCurrDate.textContent = currDate; //Intl.DateTimeFormat
 }
 
-/*will get all the weather data from the API
+/*will get all the weatherData data from the API
 using getWeatherData() function and load the result in
 loadCurrentWeather() and loadDailyForecast() functions*/ 
 async function getWeatherData(lat, lon) {
@@ -126,27 +127,28 @@ async function getWeatherData(lat, lon) {
         throw new Error(`Response status: ${response.status}`);
         }
 
-        const result = await response.json();
-        console.log(result); //API weather data
+        //instead of const result, will add weatherData, so will it to change the value of the weatherData data
+        weatherData = await response.json();
+        console.log(weatherData); //API weatherData data
 
-        /*new function for current weather temperature and result will be the parameter
+        /*new function for current weatherData temperature and result will be the parameter
           when we get the result from API, using our getWeatherData() function
-           we load the weather data result in our loadCurrentWeather() function*/
-        loadCurrentWeather(result);  
-        loadDailyForecast(result); //get weather, daily forecast data from api and load result in loadDailyForecast() function.
-        loadHourlyForecast(result);
-        populateDayOfWeek(); //dropdown days for hourly forecast
+           we load the weatherData data result in our loadCurrentWeather() function*/
+        loadCurrentWeather(weatherData);  
+        loadDailyForecast(weatherData); //get weatherData, daily forecast data from api and load result in loadDailyForecast() function.
+        loadHourlyForecast(weatherData); //will run it first when we load all the data
+        
     } catch (error) {
         console.error(error.message);
     }
 }
 
 //current temperature function
-function loadCurrentWeather(weather) {
+function loadCurrentWeather() {
     //check if its loaded
-    //console.log(weather);
+    //console.log(weatherData);
     /* will get current temp div and use textContent property
-     and use our weather parameter to get current temperature.
+     and use our weatherData to get current temperature.
      will get the current temperature from API calls (latitude & longitude)
     in current field called apparent_temperature. 
     
@@ -156,12 +158,12 @@ function loadCurrentWeather(weather) {
     and were targeting that from here`.
     
     To remove the decimal from our temperature use Math.round()*/
-    dvCurrTemp.textContent = Math.round(weather.current.temperature_2m);
+    dvCurrTemp.textContent = Math.round(weatherData.current.temperature_2m);
     
     //load cuurent conditions feels like
-    pFeelsLike.textContent = Math.round(weather.current.apparent_temperature);
+    pFeelsLike.textContent = Math.round(weatherData.current.apparent_temperature);
     //humidity
-    pHumidity.textContent = weather.current.relative_humidity_2m;
+    pHumidity.textContent = weatherData.current.relative_humidity_2m;
     /*Wind
      will be using template literal for Wind coz were adding a symbol or
      were joining this variables with space between them 
@@ -173,27 +175,27 @@ function loadCurrentWeather(weather) {
      basically to remove slash from mp/h 
      so we replace "mp/h" with "mph"
      and math.round() to remove decimal point*/
-    pWind.textContent = `${Math.round(weather.current.wind_speed_10m)} ${weather.current_units.wind_speed_10m.replace("mp/h", "mph")}`;
+    pWind.textContent = `${Math.round(weatherData.current.wind_speed_10m)} ${weatherData.current_units.wind_speed_10m.replace("mp/h", "mph")}`;
 
     /*Precipitation
      we added a replace() method for current_units precipitation to change "inch" with "in" coz 
      if user select fahrenheit as Unit, then we want it to display "in" instead of "inch" for Precipitation. */
-    pPrecipitation.textContent = `${weather.current.precipitation} ${weather.current_units.precipitation.replace("inch", "in")}`;
+    pPrecipitation.textContent = `${weatherData.current.precipitation} ${weatherData.current_units.precipitation.replace("inch", "in")}`;
 
 
 }
 
 
 /** we need to loop through our daily forecast data
- * go through our api call which is our weather object
+ * go through our api call which is our weatherData object
  * and we've already used current and current_units, 
  * so now will use daily for daily forecast.
  */
-/*daily forecast data, use weather as parameter.
-  this function will load the weather result */
-function loadDailyForecast(weather) {
-    //load all the days from weather API 'daily' object.
-    let daily = weather.daily;
+/*daily forecast data.
+  this function will load the weatherData result */
+function loadDailyForecast() {
+    //load all the days from weatherData API 'daily' object.
+    let daily = weatherData.daily;
     /*loop through 'daily' data. 
        will use for loop
        API daily object contains temperature_2m_max and temperature_2m_min, time, weather_code
@@ -220,18 +222,18 @@ function loadDailyForecast(weather) {
         //individual days
         let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`); //i + 1 is only for div's. 
         /* Load the actual Image File Path
-        will replace the actual rain image icon name with the weather code 
-            weill use getWeatherCodeName() function coz thats where we have stored the weather codes.
+        will replace the actual rain image icon name with the weatherData code 
+            weill use getWeatherCodeName() function coz thats where we have stored the weatherData codes.
             API call - daily - weather_code*/
         let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
 
         /*load the content which is the 3rd parameter for daily__day-temps,
-        weather API - daily - temperature_2m_max and index to get the temp degrees 
+        weatherData API - daily - temperature_2m_max and index to get the temp degrees 
         and add degree symbol as a string
         we also use Math.round() for temp degrees to remove the decimal points*/
         let dailyHigh = Math.round(daily.temperature_2m_max[i]) + "°"; // we dont use i + 1 here coz when we pulling data, we start it from index 0.
         /*dailyLow
-        weather API - daily - temperature_2m_min and index */
+        weatherData API - daily - temperature_2m_min and index */
         let dailyLow = Math.round(daily.temperature_2m_min[i]) + "°";
 
 
@@ -359,17 +361,35 @@ function addHourlyElement(tag, className, content, weatherCodeName, parentElemen
     will add loop:
     which will loop through the hourly data.
 
-    weather is provided as parameter, coz
-    will pull weather in loadHourlyForecast to pull our data.
-
-    Also added a dayIndex paramter for hourly-forecast drop down list
-    which will allow user to select the days they want to load the forecast for.
-    so will set the dayIndex to 0 to default value.
-    So, By default it will load the first day which is the current day.
+    will loadHourlyForecast()pull weatherData in loadHourlyForecast to pull our data.
+   
  */
-function loadHourlyForecast(weather, dayIndex = 0) {
+function loadHourlyForecast() {
+    console.log("loadHourlyForecast()");
 
-    /* the API weather data has a date format: 2026-05-27T00:00
+    /* Declared dayIndex variable for hourly-forecast drop down list
+    which will allow user to select the days they want to load the forecast for.
+    so by default the dayIndex value will be 0.
+    and by default it will load the first day which is the current day.
+    next: 
+        when everytime the drop down list changes (like if user select other day)
+        than will re-reun loadHourlyForecast for that day.
+        and add a listener event to the select tag
+
+        we have added parseInt coz, without it our day was getting concatenate as a string
+        coz we were doing dayIndex + 1, for example, for day 2 it was doing Day 21, day 3 - day 31
+        so it was joining the string like 2+1, 3+1 and it was giving day21 or day 31.
+        so we used parseInt() method to change the string into int.
+        so our string is ddllDay.value and 10 is radix parameter of parseInt 
+        
+        off Topic:
+        The parseInt method parses a value as a string and returns the first integer
+        A radix parameter specifies the number system to use:
+        2=binary, 8=octal, 10=decimal, 16=hexadecimal
+     */
+    let dayIndex = parseInt(ddlDay.value, 10); //parseInt is used to change string to int
+
+    /* the API weatherData data has a date format: 2026-05-27T00:00
     // so will use the same date format: 2026-05-27T00:00 to customise our date.*/
 
     //Pseudo code on how to load the data to get the format for time.
@@ -381,12 +401,12 @@ function loadHourlyForecast(weather, dayIndex = 0) {
     //Day 5, Hours: 96-119 //96+23 is 119
     //Day 6, Hours: 120-143 //120+23 is 143
     //Day 7, Hours: 144-167 //144+23 is 167
-    //and in our weather api call, in our hourly object field we got total 168 arrays for time, temperature and weather code.
+    //and in our weatherData api call, in our hourly object field we got total 168 arrays for time, temperature and weatherData code.
     //we can use these indexes to pull from each one. so if we have starting hour index then we can add 23 to that for each day
     // and this will be simpler than trying to convert data from an object.
     // And this is what we really need in order to retrieve the correct hourly data.
 
-    //console.log(weather);
+    //console.log(weatherData);
 
     /*Add days to date*/
     /*By default it will load the first day which is the current day*/
@@ -402,32 +422,41 @@ function loadHourlyForecast(weather, dayIndex = 0) {
         //Last Hour -- 24 * (0 + 1) - 1
         let lastHour = 24 * (dayIndex + 1) - 1;
 
-        /*we get this from our weather api 'getWeatherData()': 
-            so, weather - hourly object - weather_code (weather_code will return array) */
-        let weatherCodes = weather.hourly.weather_code;
+        /*we get this from our weatherData api 'getWeatherData()': 
+            so, weatherData - hourly object - weather_code (weather_code will return array) */
+        let weatherCodes = weatherData.hourly.weather_code;
 
-        //weather api : weather - hourly object - temperature_2m (retturns array)
-        let temps = weather.hourly.temperature_2m;
+        //weatherData api : weatherData - hourly object - temperature_2m (retturns array)
+        let temps = weatherData.hourly.temperature_2m;
 
-        //hours variable to pull time from hourly weather data API
-        let hours = weather.hourly.time; 
+        //hours variable to pull time from hourly weatherData data API
+        let hours = weatherData.hourly.time; 
+
+        /*So will not declare the id inside the loop. 
+            will just redeclaring it as one (1) every single time. */
+        let id = 1;
 
         /* now we need to figure out what the hours are ging to be ?
             on mockup design its 3pm, 4pm etc.
             will start from midnight 12:00am.
             and will need another for loop inside our for loop to display the hour.
             right now were getting the data for the whole day which is 24hour of data.
-            and now we need to loop through the hours of the day for each day.*/
-        for (let h = firstHour; h < lastHour; h++) {
+            and now we need to loop through the hours of the day for each day.
+            
+            we've added "=" synbol beside less than, as that will display 24 hours, as
+            earlier with no 'equal to symbol' it was only displaying 23 hours which is till 11pm*/
+        for (let h = firstHour; h <= lastHour; h++) {
+            //
+            
            /*Test
                 for each of the 7 days, it will console log 24 hours. (numbers)
                 this should show: Day 1: start from 0 and and goes till 23, Day 2: 24 - 47. and so on.
                 so our hourly loop is working now*/
-           //console.log(h);
+            //console.log(`hour = ${h}`); //this will output everything.
 
             let weatherCodeName = getWeatherCodeName(weatherCodes[h]);
             let temp = Math.round(temps[h]) + "°";
-            /** hours[h] will pull the time from hourly weather data API
+            /** hours[h] will pull the time from hourly weatherData data API
                 we'll  convert this 2026-05-30T00:00 date time string to a date object.
                 then format the hour.
                 And to do that will use new Date()
@@ -450,11 +479,19 @@ function loadHourlyForecast(weather, dayIndex = 0) {
             //console.log(hour, weatherCodeName, temp); 
 
             //individual hours
-            let dvForecastHour = document.querySelector(`#dvForecastHour${h + 1}`); //h + 1 is only for div's.
+            let dvForecastHour = document.querySelector(`#dvForecastHour${id}`);
+            //console.log(`#dvForecastHour${id}`); //generate forecast hour ids for all days
             /*Test
                 console.log(dvForecastHour); //generates div elements for hourly forecast
                 like this: <div id="dvForecastHour2" class="hourly__hour"></div>*/
-            
+
+            /*remove all the dvForecastHour child 
+                (otherwise it will duplicate the icons, hours and temperature) */
+            while (dvForecastHour.firstChild) {
+                dvForecastHour.removeChild(dvForecastHour.firstChild);
+                //console.log("remove child");
+            }
+
             /* generate the markup
                 dynamically generate p.daily__day-title.
                 so will create a paragraph and insert it into element.
@@ -462,11 +499,16 @@ function loadHourlyForecast(weather, dayIndex = 0) {
             addDailyElement("img", "hourly__hour-icon", "", weatherCodeName, dvForecastHour, "afterbegin"); 
             addDailyElement("p", "hourly__hour-time", hour, "", dvForecastHour, "beforeend");
             addDailyElement("p", "hourly__hour-temp", temp, "", dvForecastHour, "beforeend");
+            console.log(`#dvForecastHour${h + 1}`);
+
+            /*for every loop the id will be incremented.
+                and we have declared the id outside the for loop.*/
+            id++;
 
 
             /*console.log(weatherCodes[h], temps[h]);
                 this should output the same weathercode_arrays for all the 7 days,
-                as we normally have in our weather data API.
+                as we normally have in our weatherData data API.
                 and tempearature */
             //console.log(weatherCodes[h], temps[h]);
 
@@ -474,7 +516,7 @@ function loadHourlyForecast(weather, dayIndex = 0) {
         }
 
         //we need to get the hour
-        // weather code 
+        // weatherData code 
         // temperature
 
         /*Test
@@ -498,7 +540,7 @@ function loadHourlyForecast(weather, dayIndex = 0) {
 //helper function: to get hours and return the number of hours.
 function getHours() {
     /*now will create them as strings so that we can match the format 
-        that we have in our weather API data for hourly forecast date
+        that we have in our weatherData API data for hourly forecast date
         which is this: 2026-05-27T00:00 
         right now we have this: 2026 - 04 - 27 which we created using 'for loop for days'
         and we have to turn it into this: 2026-05-27T00:00 
@@ -516,9 +558,9 @@ function getHours() {
 
 
 //will use this function() for the image alt text
-/*update weather icons:*/
+/*update weatherData icons:*/
 function getWeatherCodeName(code) {
-    /*check weather variable documentation for 
+    /*check weatherData variable documentation for 
     Weather interpretion codes on open-meteo site
         sunny -    0 
         partly-cloudy - 1, 2
@@ -619,7 +661,18 @@ function populateDayOfWeek() {
     }
     console.log(ddlDay); //load contents of ddlDay (select and option tags for dropdown days (hourly forecast))
 }
+populateDayOfWeek(); //dropdown days for hourly forecast
 getGeoData();
+
+/*when we select another day from drop-down list,
+    will run the loadHourlyForecast() function */
+ddlDay.addEventListener("change", loadHourlyForecast);
+/**
+ * so: will run loadHourlyForecast() once when we load all the data (which will be the current weather)
+        and will run it again if the drop down list changes. using our:
+        ddlDay.addEventListener("change", loadHourlyForecast);
+        like (when other days are selected)
+ */
 
 //console.log(getWeatherFilePath(1)); //call getWeatherFileName(code) 
 
