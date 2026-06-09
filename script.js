@@ -3,6 +3,10 @@
 const ddlUnits = document.querySelector("#ddlUnits"); /*dropdown units*/
 const ddlDay = document.querySelector("#ddlDay"); /*dropdown days for hourly forecast*/
 
+//search box & button
+const btnSearch = document.querySelector("#btnSearch"); //search button
+const txtSearch = document.querySelector("#txtSearch"); //search box
+
 // address & date 
 const dvCityCountry = document.querySelector("#dvCityCountry"); /*city & country name */
 const dvCurrDate = document.querySelector("#dvCurrDate"); /*current date */
@@ -23,7 +27,10 @@ let cityName, countryName, weatherData;
 
 
 async function getGeoData() {
-    let search = "london, england";
+    /* when we run getGeoData()
+        will pull whatever the search box text box has.
+     */
+    let search = txtSearch.value;
 
     /*will use string template literals for our url so will use bacltick `` instead of double quotes for url, 
     coz by using backticks, it will enable us to load the value of our search variable
@@ -235,6 +242,13 @@ function loadDailyForecast() {
         /*dailyLow
         weatherData API - daily - temperature_2m_min and index */
         let dailyLow = Math.round(daily.temperature_2m_min[i]) + "°";
+
+        /*remove all the dvForecastDay child 
+            (otherwise it will duplicate the days, icons, and temperature) */
+        while (dvForecastDay.firstChild) {
+                dvForecastDay.removeChild(dvForecastDay.firstChild);
+                //console.log("remove child");
+        }
 
 
         /*Test:
@@ -662,7 +676,12 @@ function populateDayOfWeek() {
     console.log(ddlDay); //load contents of ddlDay (select and option tags for dropdown days (hourly forecast))
 }
 populateDayOfWeek(); //dropdown days for hourly forecast
-getGeoData();
+//getGeoData();
+
+/** Event Listener for Search button
+ * Anythime the button is clicked, will do stuff.
+ * will listen for click and will run getGeoData() function*/
+btnSearch.addEventListener("click", getGeoData);
 
 /*when we select another day from drop-down list,
     will run the loadHourlyForecast() function */
