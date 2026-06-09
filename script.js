@@ -32,6 +32,12 @@ async function getGeoData() {
      */
     let search = txtSearch.value;
 
+    /** let search = "london, england"
+     * We will use search box to search and when search button is clicked, it will run search.
+     * Right now in our code, we have getGeoData() function and at the moment its automatically running getGeoData() when the page loads.
+     * So we don’t want to run immediately on page load instead when we click the button we want to run getGeoData() function
+    */
+
     /*will use string template literals for our url so will use bacltick `` instead of double quotes for url, 
     coz by using backticks, it will enable us to load the value of our search variable
     in this string and will do that by using $ sign with curly brackets ${} and 
@@ -682,6 +688,10 @@ populateDayOfWeek(); //dropdown days for hourly forecast
  * Anythime the button is clicked, will do stuff.
  * will listen for click and will run getGeoData() function*/
 btnSearch.addEventListener("click", getGeoData);
+
+/*units - celcius, fahrenheit 
+    "change" coz its in select and will run getGeoData() function.*/
+ddlUnits.addEventListener("change", getGeoData);
 
 /*when we select another day from drop-down list,
     will run the loadHourlyForecast() function */
