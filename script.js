@@ -4,8 +4,8 @@ const ddlUnits = document.querySelector("#ddlUnits"); /*dropdown units*/
 const ddlDay = document.querySelector("#ddlDay"); /*dropdown days for hourly forecast*/
 
 //search box & button
-const btnSearch = document.querySelector("#btnSearch"); //search button
 const txtSearch = document.querySelector("#txtSearch"); //search box
+const btnSearch = document.querySelector("#btnSearch"); //search button
 
 // address & date 
 const dvCityCountry = document.querySelector("#dvCityCountry"); /*city & country name */

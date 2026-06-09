@@ -291,7 +291,7 @@ font family, color properties font size properties, root, img, body and h tags *
             grid-template-areas: 
                 "current current hourly"
                 "daily daily hourly"; 
-            }
+        }
     }
 
     /*dropdown: unit(celsius & fahrenheit) and hourly forecast*/
@@ -611,12 +611,20 @@ font family, color properties font size properties, root, img, body and h tags *
     .hourly {
         /* inherited from golbal main dashboard class*/
         grid-area: hourly;
+        
+
 
         /* inside the hourly class div */
         .hourly__content {
             background-color: var(--color-panel-bg-dark);
             border-radius: 20px;
             padding: 20px 16px; /*top & bottom 20px, both sides 16px*/
+            max-height: 57vh;
+            overflow-y: scroll;
+
+            @media (width <= calc(1000 / 16 * 1rem) ) {
+                max-height: 45vh;
+            }
         }
         
         /* forecast title & day dropdown */
@@ -624,6 +632,7 @@ font family, color properties font size properties, root, img, body and h tags *
             /*moves dropdown day from bottom to top right side 
             beside hourly forecast header*/
             display: flex; 
+            gap: 40px;
             /*adds space between forecast title and day dropdown*/
             justify-content: space-between; 
             align-items: center; /*hourly day dropdown - this also changes height*/
