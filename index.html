@@ -30,11 +30,12 @@
       <a class="header__homelink" href="/">
         <img class="header__logo" src="/assets/images/logo.svg" alt="Weather Now Home" width="197" height="40">
       </a>
-      <!-- Unit dropdown lists -->
-      <select class="header__dropdown" name="units" id="ddlUnits">
+      <!-- Unit dropdown lists 
+       used dropdown class for both unit and hourly forecast dropdown (share the style)-->
+      <select class="dropdown header__dropdown" name="units" id="ddlUnits">
         <option value="">Units</option>
-        <option value="C">Celsius</option>
-        <option value="F">Fahrenheit</option>
+        <option value="C">&deg;C</option>
+        <option value="F">&deg;F</option>
       </select>
     </div>
   </header>
@@ -169,8 +170,9 @@
           <!-- header section (dropdown day list) for hourly forecast -->
           <div class="hourly__header">
             <h2 class="section__title hourly__title">Hourly forecast</h2>
-            <!-- dropdown - drop down list day-->
-            <select name="hourly__select" id="ddlDay">
+            <!-- dropdown - drop down list day
+             added dropdown class for both unit and hourly forecast dropdown (share the style)-->
+            <select class="dropdown hourly__select" name="hourly__select" id="ddlDay">
               <!-- will dynamically create different option (dropdown) in populateDayOfWeek() function in js
               and will set the value to be the dayIndex which is 0, 
               and will use this when we load our hourly data. -->

@@ -124,6 +124,10 @@ async function getWeatherData(lat, lon) {
         windUnit = "kmh";
         precipUnit = "inch"; 
     }
+
+    /** whenever we sleect any of the unit like celsius or fahrenheit, 
+     * it will re-run the data and the above "unit" code will check what unit is selected 
+     * which will then affect what we put in our URL.*/
    
     /*will use string template literals for our url so will use bacltick `` instead of double quotes for url, 
     coz by using backticks, it will enable us to load the value of our search variable

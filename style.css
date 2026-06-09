@@ -159,7 +159,10 @@ font family, color properties font size properties, root, img, body and h tags *
         font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
     }
 
-    input, button, textarea {
+    input, 
+    button, 
+    textarea, 
+    select {
         /*we do font inherit here coz browser make all the form elements have
           a specific different font size.
           so even if we set the font size on body tag, the form elements will
@@ -270,27 +273,34 @@ font family, color properties font size properties, root, img, body and h tags *
         so to add space we do row-gap instead of just gap
         and will have margins on either side*/
         row-gap: 32px;
+    }
 
-        /* mobile & tablet */
-        .dashboard {
-            display: grid;
-            gap: 32px; /* gap: 32px between columns */
-            grid-template-areas: 
-                /*1 columns for each*/
-                "current" 
-                "daily" 
-                "hourly";
+    /* mobile & tablet */
+    .dashboard {
+        display: grid;
+        gap: 32px; /* gap: 32px between columns */
+        grid-template-areas: 
+            /*1 columns for each*/
+            "current" 
+            "daily" 
+            "hourly";
             /* desktop */
-            @media (width >= calc(1000 / 16 * 1rem)) {
-                gap: 48px 32px; /* gap: 48px between rows, 32px between columns */
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-areas: 
-                    "current current hourly"
-                    "daily daily hourly";
-                
-                
+        @media (width >= calc(1000 / 16 * 1rem)) {
+            gap: 48px 32px; /* gap: 48px between rows, 32px between columns */
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas: 
+                "current current hourly"
+                "daily daily hourly"; 
             }
-        }
+    }
+
+    /*dropdown: unit(celsius & fahrenheit) and hourly forecast*/
+    .dropdown {
+        background-color: var(--color-panel-bg-dark);
+        color: var(--color-text-light);
+        border: 0;
+        font-size: var(--font-size-dropdown);
+        border-radius: 8px;
     }
 
     /* helper class for condition class 4 panels: 
@@ -341,7 +351,12 @@ font family, color properties font size properties, root, img, body and h tags *
 
         /* Units dropdown for mobile*/
         .header__dropdown {
-            width: calc(90 / 16 * 1rem);
+            width: calc(90 / 16 * 1.4rem);
+            /* width: auto; */
+            background-image: url("/assets/images/icon-units.svg");
+            background-repeat: no-repeat;
+            background-position: 16px center; /*16px from left*/
+            padding: 12px 40px; /*12px on top & bottom, 40px on left & right*/
         }
     }
 
@@ -625,7 +640,11 @@ font family, color properties font size properties, root, img, body and h tags *
         }
 
         /* dropdown */
-        .hourly__select {}
+        .hourly__select {
+            background-color: var(--color-panel-bg-med);
+            width: auto;
+            padding: 8px 16px; /*8px top&bottom 16px left&right*/
+        }
 
         .hourly__select-day {}
 
