@@ -619,11 +619,11 @@ font family, color properties font size properties, root, img, body and h tags *
             background-color: var(--color-panel-bg-dark);
             border-radius: 20px;
             padding: 20px 16px; /*top & bottom 20px, both sides 16px*/
-            max-height: 57vh;
+            max-height: 48vh;
             overflow-y: scroll;
 
-            @media (width <= calc(1000 / 16 * 1rem) ) {
-                max-height: 45vh;
+            @media (width >= calc(1000 / 16 * 1rem) ) {
+                height: 100%;
             }
         }
         
