@@ -1,12 +1,59 @@
 # Frontend Mentor - Weather API App
 
-**Front-End Website Development | Personal Project| HTML5, CSS3, Vanilla JavaScript**
+**Front-End Website Development | HTML5, CSS3, JavaScript**
 
-## 🚧 Work in progress
+## Table of contents
 
-Building a resposnive weather app challenge from Frontend Mentor using provided UI design markups for mobile, tablet, and desktop layouts while developing all HTML, CSS and JavaScript from scratch.
+- [Overview](#-overview)
+- [Live-Demo](#-live-demo)
+- [Built-with](#️-built-with)
+- [Features](#features)
+- [Project-Goals](#-project-goals)
+- [The-Challenge](#-the-challenge)
+- [Final-UI-Screenshots](#-final-ui-screenshots)
+- [Development-Screenshots](#️-development-screenshots)
+- [Key-Learnings](#-key-learnings)
+- [CORS-Issue](#️-important---cors-issue-development-only)
+- [AI-Collaboration](#-ai-collaboration)
+- [Useful-Resources](#useful-resources)
 
-👨‍💻 I'm making regular commits so the project's progress and development updates will be visible here on GitHub. Currently focused on styling and responsive layout design, with JavaScript functionality and API integration coming soon.
+## 📚 Overview
+
+Developed a fully responsive Weather App based on a Frontend Mentor challenge using provided design mockups for mobile, tablet, and desktop layouts. Built the application from sratch using HTML, CSS and JavaScript, integrating weather APIs to display real-time weather data, forecats, and location-based information.
+
+The application was designed with a mobile-first approach and optimised to provide a seamless user experience across a range of devices.
+
+This implementation focuses on core functionality, responsive design, and API integration. Some optional features from the original challenge were not included.
+
+The GitHub repository contains the complete source code and development history.
+
+---
+
+## 🌐 Live Demo
+
+Coming soon...
+
+---
+
+## 🛠️ Built with
+
+- Semantic HTML5 markup
+- CSS3 custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- Vanilla JavaScript
+
+---
+
+## 📱 Features
+
+- Fully responsive design (mobile, tablet, and desktop)
+- Real-time weather data via API integration
+- Location search functionality
+- Dynamic weather conditions and forecasts
+- Mobile-first development approach
+- Clean and accessible user interface
 
 ---
 
@@ -21,7 +68,7 @@ Building a resposnive weather app challenge from Frontend Mentor using provided 
 
 ---
 
-## 📱 Features Planned
+## 📱 The Challenge
 
 - Responsive mobile, tablet and desktop layouts
 - Search weather information by location
@@ -37,36 +84,29 @@ Building a resposnive weather app challenge from Frontend Mentor using provided 
 
 ---
 
-## 🛠️ Languages Used
+## 📷 Final UI Screenshots
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
+### Responsive Design (Mobile, Tablet, Desktop)
 
----
-
-## ✅ Current Progress
-
-- [x] Project steup
-- [x] HTML structure
-- [x] CSS styling
-- [x] Mobile-first responsiveness layout
-- [ ] UI refinements
-- [ ] JavaScript functionality [in progress]
-- [ ] Weather API integration [in progress]
-- [ ] Search functionality [not started]
-- [ ] Final responsivness testing
-- [ ] Deployment
-
-## 📚 What I'm Learning
-
-This project is helping me improve my responsive design workflow, CSS architecture, JavaScript functionality, API integration and overall front-end development skills while building from professional UI mockups.
+![responsive-design](assets/completed-screenshots/responsive-design.png)
 
 ---
 
-## 🌐 Live Demo
+## 🛠️ Development Screenshots
 
-Coming soon...
+Screenshots captured throuhout the development and testing process.
+
+- [View Development Screenshots](https://github.com/JigarBlue/Weather-API-App/tree/main/assets/test-screenshots)
+
+---
+
+## 📚 Key Learnings
+
+- Strengthened skills in responsive web design using a mobile-first approach
+- Improved CSS structuring and layout building from UI mockups
+- Built practical experience with JavaScript functionality and DOM manipulation
+- Integrated a weather API to display real-time data
+- Improved ability to convert design mockups into a fully functional web application
 
 ---
 
@@ -96,8 +136,31 @@ For production or cross-browser support, enable CORS on the API server instead o
 
 ---
 
-## 📷 Test Screenshots UI Preview
+## 🤖 AI Collaboration
 
-- UI built with HTML & CSS.
-- Functionality and API integration are still in progress.
-- [View Current Progress UI] (./assets/test-screenshots/)
+This project was developed with assistance from AI tools, including ChatGPT and Claude.
+
+These tools were used to:
+
+- Explain JavaScript concepts and code functionality
+- Clarify unfamiliar sections of code
+- Assist with debugging and troubleshooting
+- Provide guidance on best practices and implementation approaches
+
+All project planning, development, testing, and final implementation decisions were completed and reviewed by the developer.
+
+---
+
+## Useful Resources
+
+- [MDN Web Docs - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+- [Open-Meteo](https://open-meteo.com/en/docs)
+
+- [Nominatim OpenStreet Map Data](https://nominatim.org/release-docs/develop/api/Search/)
+
+- [Google Web Fonts Helper](https://gwfh.mranftl.com/fonts)
+
+- [Accessibility Developer Guide](https://www.accessibility-developer-guide.com)
+
+- [Format Date](https://www.freecodecamp.org/news/javascript-date-format-how-to-format-a-date-in-js/)
