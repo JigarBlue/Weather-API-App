@@ -355,7 +355,8 @@ font family, color properties font size properties, root, img, body and h tags *
             /* width: auto; */
             background-image: url("/assets/images/icon-units.svg");
             background-repeat: no-repeat;
-            background-position: 16px center; /*16px from left*/
+            /*background-position: 16px center; /*16px from left*/
+            background-position: 16px; 
             padding: 12px 40px; /*12px on top & bottom, 40px on left & right*/
         }
     }
