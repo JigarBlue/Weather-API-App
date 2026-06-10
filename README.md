@@ -7,7 +7,7 @@
 - [Overview](#-overview)
 - [Live-Demo](#-live-demo)
 - [Built-with](#️-built-with)
-- [Features](#features)
+- [Features](#-features)
 - [Project-Goals](#-project-goals)
 - [The-Challenge](#-the-challenge)
 - [Final-UI-Screenshots](#-final-ui-screenshots)
@@ -15,7 +15,7 @@
 - [Key-Learnings](#-key-learnings)
 - [CORS-Issue](#️-important---cors-issue-development-only)
 - [AI-Collaboration](#-ai-collaboration)
-- [Useful-Resources](#useful-resources)
+- [Useful-Resources](#-useful-resources)
 
 ## 📚 Overview
 
@@ -151,7 +151,7 @@ All project planning, development, testing, and final implementation decisions w
 
 ---
 
-## Useful Resources
+## 🔖 Useful Resources
 
 - [MDN Web Docs - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
