@@ -19,7 +19,7 @@
 
 ## 📚 Overview
 
-Developed a fully responsive Weather App based on a Frontend Mentor challenge using provided design mockups for mobile, tablet, and desktop layouts. Built the application from sratch using HTML, CSS and JavaScript, integrating weather APIs to display real-time weather data, forecats, and location-based information.
+Developed a fully responsive Weather App based on a Frontend Mentor challenge using provided design mockups for mobile, tablet, and desktop layouts. Built the application from scratch using HTML, CSS and JavaScript, integrating weather APIs to display real-time weather data, forecasts, and location-based information.
 
 The application was designed with a mobile-first approach and optimised to provide a seamless user experience across a range of devices.
 
@@ -59,11 +59,11 @@ The GitHub repository contains the complete source code and development history.
 
 ## 🎯 Project Goals
 
-- Practice resposnive web design techniques
+- Practice responsive web design techniques
 - Improve CSS layout and positioning skills
 - Strengthen JavaScript DOM manipulation skills
 - Work with real-world weather APIs
-- Build a fully resposnisble UI from professional design references
+- Build a fully responsible UI from professional design references
 - Improve Git and GitHub workflow through consistent commits
 
 ---
@@ -94,7 +94,7 @@ The GitHub repository contains the complete source code and development history.
 
 ## 🛠️ Development Screenshots
 
-Screenshots captured throuhout the development and testing process.
+Screenshots captured throughout the development and testing process.
 
 - [View Development Screenshots](https://github.com/JigarBlue/Weather-API-App/tree/main/assets/test-screenshots)
 
@@ -128,7 +128,7 @@ Install the Allow CORS extension:
 
 Enable the extension and refresh the page.
 
-> Note: This step apllies only to Chrome. Other browsers may require different CORS testing tools or settings.
+> Note: This step applies only to Chrome. Other browsers may require different CORS testing tools or settings.
 
 ### 🚀 Recommended Fix (Best Practice)
 
