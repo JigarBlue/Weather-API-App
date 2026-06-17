@@ -54,6 +54,12 @@ async function getGeoData() {
 
         const result = await response.json();
         console.log(result);
+
+        // throw "lcation not found" if city doesnt exist or search box is empty
+        if (!result.length) {
+            dvCityCountry.textContent = "Location not found";
+            return;
+        }
         /* will get lat and lon from here.
         latitude and logitude is in first item of array index 0 
         so, result which is whole array and 
@@ -78,9 +84,37 @@ function loadLocationData(locationData) {
     let location = locationData[0].address;
 
     /*save the city name as location
-     location will be index 0, address, and then we can get into fields.*/
-    cityName = location.city;
+     location will be index 0, address, and then we can get into fields.
+
+     In Nominatim address.city is not guaranted to exist, 
+     so cityName = location.city becomes undefined which means the UI shows undefined, GB
+     We use || OR operator instead which will pick the first value that exists and is not empty.
+     so if location.city exist, it will use it and and will stop otheriwse it will move on
+     and look at location.town and so on..
+     also add locationData[0].display_name.split(",")[0]; 
+     here display_name is a full string like: Luton, Borough of Luton, England, United Kingdom
+     .split(",") will break it into ["Luton", "Borough of Luton", "England", "United Kingdom"]
+      and [0] will take the first part "Luton".
+      Basically, use city if available, otheriwse town, otheriwse village, otherwise municiplaity, 
+      otherwise county, otherwise just take the first part of the full address string.
+
+      OpenStreetMap (Nominatim) does not standardise city fields:
+      so big cities = city, small towns = town, villages = village, administartive areas = county
+      so without this fallback chain, our UI will randomly break depending on the location.
+      like earlier for Luton, we were getting undefined, GB.
+     
+     */
+    cityName = 
+        location.city ||
+        location.town ||
+        location.village ||
+        location.hamlet ||
+        location.municipality ||
+        location.county ||
+        locationData[0].display_name.split(",")[0]; 
     countryName = location.country_code.toUpperCase(); //upper case for country code
+
+    console.log(locationData[0].address);
 
     //use options argument to customise date & time formats
     let dateOptions = {
