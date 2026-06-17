@@ -45,7 +45,7 @@ async function getGeoData() {
      */
     // were getting data from this url
     //addressdetails : 0 or 1. when set to 1, includes breakdown of address into elements.
-    const url = `https://nominatim.openstreetmap.org/search?q=${search}}&format=jsonv2&addressdetails=1`;
+    const url = `https://nominatim.openstreetmap.org/search?q=${search}&format=jsonv2&addressdetails=1`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
