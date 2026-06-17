@@ -55,8 +55,9 @@ async function getGeoData() {
         const result = await response.json();
         console.log(result);
 
-        // throw "lcation not found" if city doesnt exist or search box is empty
-        if (!result.length) {
+        /*throw "lcation not found" if city doesnt exist or search box is empty
+            it will also protect if API response format changes or fails unexpectedly*/
+        if (!Array.isArray(result) || result.length === 0) {
             dvCityCountry.textContent = "Location not found";
             return;
         }
