@@ -96,7 +96,7 @@ The GitHub repository contains the complete source code and development history.
 
 Screenshots captured throughout the development and testing process.
 
-- [View Development Screenshots](https://github.com/JigarBlue/Weather-API-App/tree/main/assets/test-screenshots)
+- [View Development Screenshots](https://github.com/JigarBlue/Weather-API-App/tree/main/assets/development-screenshots)
 
 ---
 
